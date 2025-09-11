@@ -310,14 +310,14 @@ set_option NAME_OF_MACHINE $nameofmachine
 }
 
 # @description Choose AUR helper. 
-aurhelper () {
+#aurhelper () {
   # Let the user choose AUR helper from predefined list
-  echo -ne "Please enter your desired AUR helper:\n"
-  options=(paru yay picaur aura trizen pacaur none)
-  select_option $? 4 "${options[@]}"
-  aur_helper=${options[$?]}
-  set_option AUR_HELPER $aur_helper
-}
+  #echo -ne "Please enter your desired AUR helper:\n"
+  #options=(paru yay picaur aura trizen pacaur none)
+ # select_option $? 4 "${options[@]}"
+ # aur_helper=${options[$?]}
+ # set_option AUR_HELPER $aur_helper
+#}
 
 # @description Choose Desktop Environment
 desktopenv () {
@@ -357,7 +357,7 @@ set_option AUR_HELPER NONE
 if [[ ! $desktop_env == server ]]; then
   clear
   logo
-  aurhelper
+  #aurhelper
   clear
   logo
   installtype
