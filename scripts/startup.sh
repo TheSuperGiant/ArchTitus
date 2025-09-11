@@ -224,20 +224,29 @@ esac
 # @description Detects and sets timezone. 
 timezone () {
 # Added this from arch wiki https://wiki.archlinux.org/title/System_time
-time_zone="$(curl --fail https://ipapi.co/timezone)"
-echo -ne "
-System detected your timezone to be '$time_zone' \n"
-echo -ne "Is this correct?
-" 
-options=("Yes" "No")
-select_option $? 1 "${options[@]}"
+for i in $(seq 5); do
+   time_zone="$(curl -s --fail https://ipapi.co/timezone)"
+	if [ -n "$time_zone" ]; then
+		break
+	fi
+	sleep 0.25
+done
+
+if [ -n "$time_zone" ]; then
+	echo -ne "\nSystem detected your timezone to be '$time_zone' \n"
+	echo -ne "Is this correct?\n" 
+	options=("Yes" "No")
+	select_option $? 1 "${options[@]}"
+else
+	options="No"
+fi
 
 case ${options[$?]} in
     y|Y|yes|Yes|YES)
     echo "${time_zone} set as timezone"
     set_option TIMEZONE $time_zone;;
     n|N|no|NO|No)
-    echo "Please enter your desired timezone e.g. Europe/London :" 
+    echo -e "\nPlease enter your desired timezone e.g. Europe/London :" 
     read new_timezone
     echo "${new_timezone} set as timezone"
     set_option TIMEZONE $new_timezone;;
@@ -282,14 +291,17 @@ echo -ne "
 ------------------------------------------------------------------------
     THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
     Please make sure you know what you are doing because
-    after formating your disk there is no way to get data back
+    after formatting your disk there is no way to get data back
 ------------------------------------------------------------------------
 
+$(lsblk -o NAME,TYPE,SIZE,LABEL -n | grep -E "^(.*) (disk|part) (.*)$")
+
+------------------------------------------------------------------------
 "
 
 PS3='
 Select the disk to install on: '
-options=($(lsblk -n --output TYPE,KNAME,SIZE | awk '$1=="disk"{print "/dev/"$2"|"$3}'))
+options=($(lsblk -n --output TYPE,KNAME,SIZE | awk '$1=="disk"{print "/dev/"$2}'))
 
 select_option $? 1 "${options[@]}"
 disk=${options[$?]%|*}
@@ -310,14 +322,14 @@ set_option NAME_OF_MACHINE $nameofmachine
 }
 
 # @description Choose AUR helper. 
-aurhelper () {
+#aurhelper () {
   # Let the user choose AUR helper from predefined list
-  echo -ne "Please enter your desired AUR helper:\n"
-  options=(paru yay picaur aura trizen pacaur none)
-  select_option $? 4 "${options[@]}"
-  aur_helper=${options[$?]}
-  set_option AUR_HELPER $aur_helper
-}
+  #echo -ne "Please enter your desired AUR helper:\n"
+  #options=(paru yay picaur aura trizen pacaur none)
+ # select_option $? 4 "${options[@]}"
+ # aur_helper=${options[$?]}
+ # set_option AUR_HELPER $aur_helper
+#}
 
 # @description Choose Desktop Environment
 desktopenv () {
@@ -357,7 +369,7 @@ set_option AUR_HELPER NONE
 if [[ ! $desktop_env == server ]]; then
   clear
   logo
-  aurhelper
+  #aurhelper
   clear
   logo
   installtype
