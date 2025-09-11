@@ -223,13 +223,15 @@ esac
 }
 # @description Detects and sets timezone. 
 timezone () {
-# Added this from arch wiki https://wiki.archlinux.org/title/System_time
+#Retry grep time zone 5 times if online fetch fails.
 for i in $(seq 5); do
+	# Added this from arch wiki https://wiki.archlinux.org/title/System_time
    time_zone="$(curl -s --fail https://ipapi.co/timezone)"
 	if [ -n "$time_zone" ]; then
 		break
 	fi
 	sleep 0.25
+	echo "Failed to grep time zone ($i/5)"
 done
 
 if [ -n "$time_zone" ]; then
