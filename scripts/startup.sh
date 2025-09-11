@@ -228,16 +228,14 @@ for i in $(seq 5); do
     echo "Iteration $i"
 	time_zone="$(curl -s --fail https://ipapi.co/timezone)"
 	echo $time_zone
-	if [ -z "$time_zone" ]; then
+	if [ -n "$time_zone" ]; then
 		break
 	fi
 done
 
-if [ -z "$time_zone" ]; then
-	echo -ne "
-	System detected your timezone to be '$time_zone' \n"
-	echo -ne "Is this correct?
-	" 
+if [ -n "$time_zone" ]; then
+	echo -ne "\nSystem detected your timezone to be '$time_zone' \n"
+	echo -ne "Is this correct?\n" 
 	options=("Yes" "No")
 else
 	options="No"
