@@ -230,6 +230,7 @@ for i in $(seq 5); do
 	if [ -n "$time_zone" ]; then
 		break
 	fi
+	sleep 0.25
 done
 
 if [ -n "$time_zone" ]; then
@@ -239,7 +240,6 @@ if [ -n "$time_zone" ]; then
 	select_option $? 1 "${options[@]}"
 else
 	options="No"
-	#select_option $? 1 "No"
 fi
 
 case ${options[$?]} in
@@ -247,7 +247,7 @@ case ${options[$?]} in
     echo "${time_zone} set as timezone"
     set_option TIMEZONE $time_zone;;
     n|N|no|NO|No)
-    echo "Please enter your desired timezone e.g. Europe/London :" 
+    echo -e "\nPlease enter your desired timezone e.g. Europe/London :" 
     read new_timezone
     echo "${new_timezone} set as timezone"
     set_option TIMEZONE $new_timezone;;
