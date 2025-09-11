@@ -239,7 +239,7 @@ if [ -z "$time_zone" ]; then
 	" 
 	options=("Yes" "No")
 else
-	option="No"
+	options="No"
 fi
 select_option $? 1 "${options[@]}"
 
