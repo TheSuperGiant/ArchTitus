@@ -282,14 +282,16 @@ echo -ne "
 ------------------------------------------------------------------------
     THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
     Please make sure you know what you are doing because
-    after formating your disk there is no way to get data back
+    after formatting your disk there is no way to get data back
+	$(lsblk -o NAME,TYPE,SIZE,LABEL -n | grep -E "^(.*) (disk|part) (.*)
+	
 ------------------------------------------------------------------------
 
 "
 
 PS3='
 Select the disk to install on: '
-options=($(lsblk -n --output TYPE,KNAME,SIZE | awk '$1=="disk"{print "/dev/"$2"|"$3}'))
+options=($(lsblk -n --output TYPE,KNAME,SIZE | awk '$1=="disk"{print "/dev/"$2}'))
 
 select_option $? 1 "${options[@]}"
 disk=${options[$?]%|*}
