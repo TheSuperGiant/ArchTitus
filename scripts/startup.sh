@@ -224,12 +224,23 @@ esac
 # @description Detects and sets timezone. 
 timezone () {
 # Added this from arch wiki https://wiki.archlinux.org/title/System_time
-time_zone="$(curl --fail https://ipapi.co/timezone)"
-echo -ne "
-System detected your timezone to be '$time_zone' \n"
-echo -ne "Is this correct?
-" 
-options=("Yes" "No")
+for i in $(seq 5); do
+    echo "Iteration $i"
+	time_zone="$(curl -s --fail https://ipapi.co/timezone)"
+	if [ -z "$time_zone" ]; then
+		break
+	fi
+done
+
+if [ -z "$time_zone" ]; then
+	echo -ne "
+	System detected your timezone to be '$time_zone' \n"
+	echo -ne "Is this correct?
+	" 
+	options=("Yes" "No")
+else
+	option="No"
+fi
 select_option $? 1 "${options[@]}"
 
 case ${options[$?]} in
