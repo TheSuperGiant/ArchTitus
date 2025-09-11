@@ -227,7 +227,6 @@ timezone () {
 for i in $(seq 5); do
     echo "Iteration $i"
 	time_zone="$(curl -s --fail https://ipapi.co/timezone)"
-	echo $time_zone
 	if [ -n "$time_zone" ]; then
 		break
 	fi
@@ -237,10 +236,10 @@ if [ -n "$time_zone" ]; then
 	echo -ne "\nSystem detected your timezone to be '$time_zone' \n"
 	echo -ne "Is this correct?\n" 
 	options=("Yes" "No")
+	select_option $? 1 "${options[@]}"
 else
 	options="No"
 fi
-select_option $? 1 "${options[@]}"
 
 case ${options[$?]} in
     y|Y|yes|Yes|YES)
