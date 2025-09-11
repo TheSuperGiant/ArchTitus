@@ -290,7 +290,7 @@ echo -ne "
 
 PS3='
 Select the disk to install on: '
-options=($(lsblk -n --output TYPE,KNAME,SIZE | awk '$1=="disk"{print "/dev/"$2"'))
+options=($(lsblk -n --output TYPE,KNAME,SIZE | awk '$1=="disk"{print "/dev/"$2}'))
 
 select_option $? 1 "${options[@]}"
 disk=${options[$?]%|*}
