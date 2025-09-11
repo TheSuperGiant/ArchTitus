@@ -227,6 +227,7 @@ timezone () {
 for i in $(seq 5); do
     echo "Iteration $i"
 	time_zone="$(curl -s --fail https://ipapi.co/timezone)"
+	echo $time_zone
 	if [ -z "$time_zone" ]; then
 		break
 	fi
