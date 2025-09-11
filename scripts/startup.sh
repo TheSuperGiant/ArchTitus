@@ -283,9 +283,9 @@ echo -ne "
     THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
     Please make sure you know what you are doing because
     after formatting your disk there is no way to get data back
-	$(lsblk -o NAME,TYPE,SIZE,LABEL -n | grep -E "^(.*) (disk|part) (.*)$")
-	
 ------------------------------------------------------------------------
+
+$(lsblk -o NAME,TYPE,SIZE,LABEL -n | grep -E "^(.*) (disk|part) (.*)$")
 
 "
 
