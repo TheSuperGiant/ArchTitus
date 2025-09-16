@@ -283,7 +283,7 @@ case ${options[$?]} in
 					#"$continent\$city"
 					break
 				esac
-				#}
+				}
 			fi
 		done
 	fi
