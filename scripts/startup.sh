@@ -315,9 +315,10 @@ case ${options[$?]} in
 					#break
 				#fi
 				#continent_list="options_$continent"
-				declare -n options="options_$continent"
-				echo $options
-				read -p "Press [Enter] to continue..."
+				#declare -n options="options_$continent"
+				options=("Amsterdam" "Andorra" "Astrakhan" "Athens" "Belgrade" "Berlin" "Bratislava" "Brussels" "Bucharest" "Budapest" "Busingen" "Chisinau" "Copenhagen" "Dublin" "Gibraltar" "Guernsey" "Helsinki" "Isle of Man" "Istanbul" "Jersey" "Kaliningrad" "Kiev" "Kirov" "Lisbon" "Ljubljana" "London" "Luxembourg" "Madrid" "Malta" "Mariehamn" "Minsk" "Monaco" "Moscow" "Oslo" "Paris" "Podgorica" "Prague" "Riga" "Rome" "Samara" "San Marino" "Sarajevo" "Saratov" "Simferopol" "Skopje" "Sofia" "Stockholm" "Tallinn" "Tirane" "Ulyanovsk" "Uzhgorod" "Vaduz" "Vatican" "Vienna" "Vilnius" "Volgograd" "Warsaw" "Zagreb" "Zaporozhye" "Zurich")
+				#echo $options
+				#read -p "Press [Enter] to continue..."
 				select_option "$?" 4 "${options[@]}"
 
 				
