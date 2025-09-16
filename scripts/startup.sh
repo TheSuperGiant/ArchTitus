@@ -311,10 +311,13 @@ case ${options[$?]} in
 				#select_option $? 4 "${continent_list[@]}"
 				if declare -n list_ref="options_$continent" 2>/dev/null; then
 					echo "nameref works. list contains: ${list_ref[@]}"
-					select_option $? 4 "${list_ref[@]}"
-					break
+					#select_option $? 4 "${list_ref[@]}"
+					#break
 				fi
-				
+				continent_list="options_$continent"
+				eval 'values=( "${'"$continent_list"'[@]}" )'
+				echo "eval fallback. values: ${values[@]}"
+				#select_option $? 4 "${values[@]}"
 				
 				
 				
