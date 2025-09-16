@@ -254,15 +254,7 @@ case ${options[$?]} in
 	options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
 	select_option $? 4 "${options[@]}"
 	continent=${options[$?]} 
-	echo "$continent"
-	if [ $continent == "retry" ]; then
-		echo "retry"
-		read -p "Press [Enter] to continue..."
-	else
-		echo "else"
-		read -p "Press [Enter] to continue..."
-	fi
-	continent=${options[$?]}
+	#echo "$continent"
 	options_Africa=()
 	options_America=()
 	options_Antarctica=()
@@ -270,9 +262,24 @@ case ${options[$?]} in
 	options_Asia=()
 	options_Atlantic=()
 	options_Australia=()
-	options_Europe=()
+	options_Europe=(Amsterdam Andorra Astrakhan Athens Belgrade Berlin Bratislava Brussels Bucharest Budapest Busingen Chisinau Copenhagen Dublin Gibraltar Guernsey Helsinki Isle of Man Istanbul Jersey Kaliningrad Kiev Kirov Lisbon Ljubljana London Luxembourg Madrid Malta Mariehamn Minsk Monaco Moscow Oslo Paris Podgorica Prague Riga Rome Samara San Marino Sarajevo Saratov Simferopol Skopje Sofia Stockholm Tallinn Tirane Ulyanovsk Uzhgorod Vaduz Vatican Vienna Vilnius Volgograd Warsaw Zagreb Zaporozhye Zurich)
 	options_Indian=()
 	options_Pacific=()
+	if [ $continent == "retry" ]; then
+		echo "retry"
+		read -p "Press [Enter] to continue..."
+	else
+		echo "else"
+		continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
+		for item in "${continents[@]}"; do
+			echo "$item"
+			if [ "$continent" = "$item" ]; then
+				echo -e "good\n\n"
+				echo "$options_$continent"
+				read -p "Press [Enter] to continue..."
+			fi
+		done
+	fi
     #read new_timezone
     echo "${new_timezone} set as timezone"
     set_option TIMEZONE $new_timezone;;
