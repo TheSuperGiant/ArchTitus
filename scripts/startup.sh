@@ -282,7 +282,7 @@ case ${options[$?]} in
 					echo "${options[@]}"
 					read city
 					echo $city
-					new_timezone='$continent\$city'
+					new_timezone="${continent}\\${city}"
 					if [[ " ${options[@]} " =~ " $city " ]]; then
 						set_option TIMEZONE $new_timezone
 						echo "${new_timezone} set as timezone"
