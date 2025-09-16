@@ -275,7 +275,7 @@ case ${options[$?]} in
 			echo "$item"
 			if [ "$continent" = "$item" ]; then
 				echo -e "good\n\n"
-				echo "$options_$continent"
+				echo "options_$continent"
 				read -p "Press [Enter] to continue..."
 			fi
 		done
