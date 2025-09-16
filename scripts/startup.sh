@@ -250,10 +250,10 @@ case ${options[$?]} in
     echo "${time_zone} set as timezone"
     set_option TIMEZONE $time_zone;;
     n|N|no|NO|No)
-    echo -e "\nPlease enter your desired timezone e.g. Europe/London :" 
-	options_continent=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
-	select_option $? 4 "${options_continent[@]}"
-	continent=${options_continent[$?]}
+   # echo -e "\nPlease enter your desired timezone e.g. Europe/London :" 
+	options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
+	select_option $? 4 "${options[@]}"
+	continent=${options[$?]}
 	options_Africa=()
 	options_America=()
 	options_Antarctica=()
