@@ -278,6 +278,8 @@ case ${options[$?]} in
 			if [ $continent == "$item" ]; then
 				echo -e "good\n\n"
 				#echo -e "${options_$continent[@]}"
+				echo "$options_Europe"
+				read -p "Press [Enter] to continue..."
 				echo "$continent"
 				read -p "Press [Enter] to continue..."
 				
