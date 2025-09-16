@@ -301,6 +301,7 @@ case ${options[$?]} in
 				#select_option $? 4 "${!continent_list}"
 				#select_option $? 1 "${options_$continent[@]}"
 				
+				echo "${!continent_list[@]}"
 				continent_list="options_$continent"
 				select_option $? 4 "${!continent_list[@]}"
 				read -p "Press [Enter] to continue..."
