@@ -305,10 +305,22 @@ case ${options[$?]} in
 				#declare -n continent_list="options_$continent"
 				#echo "${!continent_list[@]}"
 				#select_option $? 4 "${!continent_list[@]}"
-				continent_list="options_$continent"
-				eval 'values=( "${'"$continent_list"'[@]}" )'
-				select_option $? 4 "${values[@]}"
+				#continent_list="options_$continent"
+				#eval 'values=( "${'"$continent_list"'[@]}" )'
+				#select_option $? 4 "${values[@]}"
 				#select_option $? 4 "${continent_list[@]}"
+				if declare -n list_ref="options_$continent" 2>/dev/null; then
+					echo "nameref works. list contains: ${list_ref[@]}"
+					select_option $? 4 "${list_ref[@]}"
+					break
+				fi
+				
+				
+				
+				
+				
+				
+				
 				read -p "Press [Enter] to continue..."
 				echo "$continent\options_$continent[$?]"
 				read -p "Press [Enter] to continue..."
