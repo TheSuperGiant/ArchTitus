@@ -272,32 +272,26 @@ case ${options[$?]} in
 		echo "else"
 		continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 		for item in "${continents[@]}"; do
+			while :; do #only needed solong no bigger support for options in select_option
 			#echo "$item"
-			echo "$item - $continent"
-			#read -p "Press [Enter] to continue..."
-			if [ $continent == "$item" ]; then
-				continent_list="options_$continent"
-				eval 'options=( "${'"$continent_list"'[@]}" )'
-				echo "${options[@]}"
-				read city
-				echo $city
-				if [[ " ${options[@]} " =~ " $city " ]]; then
-					set_option TIMEZONE "$continent\$city"
-					break
-				fi
-				#if bigger support for options
+				echo "$item - $continent"
+				#read -p "Press [Enter] to continue..."
+				if [ $continent == "$item" ]; then
+					continent_list="options_$continent"
+					eval 'options=( "${'"$continent_list"'[@]}" )'
+					echo "${options[@]}"
+					read city
+					echo $city
+					new_timezone="$continent\$city"
+					if [[ " ${options[@]} " =~ " $city " ]]; then
+						set_option TIMEZONE $new_timezone
+						echo "${new_timezone} set as timezone"
+						break 2
+					fi
+				done
+				#if bigger support for options in select_option
 				#select_option $? 4 "${options[@]}"
-				
-				
-				
-				
-				#read -p "Press [Enter] to continue..."
-				#echo "$continent\options_$continent[$?]"
-				#read -p "Press [Enter] to continue..."
-				#"$continent\$city"
 				#break
-				#esac
-				#}
 			fi
 		done
 	fi
