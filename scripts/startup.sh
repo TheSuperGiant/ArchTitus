@@ -285,7 +285,8 @@ case ${options[$?]} in
 				#continent_list=("${!options_$continent[@]}")
 				#echo "$continent_list"
 				continent_list="options_$continent"
-				echo "$continent_list[@]"
+				#echo "$continent_list[@]"
+				echo "${continent_list[@]}"
 				read -p "Press [Enter] to continue..."
 				#echo "options_$continent"
 				#case ${options_$continent[$?]} in
