@@ -262,7 +262,7 @@ case ${options[$?]} in
 	options_Asia=()
 	options_Atlantic=()
 	options_Australia=()
-	options_Europe=("Amsterdam" "Andorra" "Astrakhan" "Athens" "Belgrade" "Berlin" "Bratislava" "Brussels" "Bucharest" "Budapest" "Busingen" "Chisinau" "Copenhagen" "Dublin" "Gibraltar" "Guernsey" "Helsinki" "Isle of Man" "Istanbul" "Jersey" "Kaliningrad" "Kiev" "Kirov" "Lisbon" "Ljubljana" "London" "Luxembourg" "Madrid" "Malta" "Mariehamn")
+	options_Europe=("Amsterdam" "Andorra" "Astrakhan" "Athens" "Belgrade" "Berlin" "Bratislava" "Brussels" "Bucharest" "Budapest" "Busingen" "Chisinau" "Copenhagen" "Dublin" "Gibraltar" "Guernsey" "Helsinki" "Isle of Man" "Istanbul" "Jersey" "Kaliningrad" "Kiev" "Kirov" "Lisbon" "Ljubljana" "London" "Luxembourg" "Madrid" "Malta" "Mariehamn" "Minsk" "Monaco" "Moscow" "Oslo" "Paris" "Podgorica" "Prague" "Riga" "Rome" "Samara" "San Marino" "Sarajevo" "Saratov" "Simferopol" "Skopje" "Sofia" "Stockholm")
 	options_Indian=()
 	options_Pacific=()
 	if [ $continent == "retry" ]; then
