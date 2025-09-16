@@ -281,6 +281,8 @@ case ${options[$?]} in
 					eval 'options=( "${'"$continent_list"'[@]}" )'
 					echo "${options[@]}"
 					read city
+					city="$(tr '[:upper:]' '[:lower:]' <<< "$city")"
+					city="$(tr '[:lower:]' '[:upper:]' <<< "${output:0:1}")${city:1}"
 					echo $city
 					new_timezone="${continent}\\${city}"
 					if [[ " ${options[@]} " =~ " $city " ]]; then
