@@ -272,8 +272,10 @@ case ${options[$?]} in
 		echo "else"
 		continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 		for item in "${continents[@]}"; do
-			echo "$item"
-			if [ "$continent" = "$item" ]; then
+			#echo "$item"
+			echo "$item - $continent"
+			read -p "Press [Enter] to continue..."
+			if [ $continent == "$item" ]; then
 				echo -e "good\n\n"
 				#echo -e "${options_$continent[@]}"
 				read -p "Press [Enter] to continue..."
@@ -432,6 +434,6 @@ filesystem
 clear
 logo
 timezone
-clear
+#clear
 logo
 keymap
