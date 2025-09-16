@@ -316,6 +316,8 @@ case ${options[$?]} in
 				#fi
 				#continent_list="options_$continent"
 				declare -n options="options_$continent"
+				echo $options
+				read -p "Press [Enter] to continue..."
 				select_option "$?" 4 "${options[@]}"
 
 				
