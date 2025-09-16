@@ -282,8 +282,10 @@ case ${options[$?]} in
 				read -p "Press [Enter] to continue..."
 				
 				#continent_list="${options_$continent}"
-				continent_list=("${!continent_list_name[@]}")
-				echo "$continent_list"
+				#continent_list=("${!options_$continent[@]}")
+				#echo "$continent_list"
+				continent_list="options_$continent"
+				echo "$continent_list[@]"
 				read -p "Press [Enter] to continue..."
 				#echo "options_$continent"
 				#case ${options_$continent[$?]} in
@@ -437,5 +439,6 @@ clear
 logo
 timezone
 #clear
-logo
+#logo
+read -p "Press [Enter] to continue..."
 keymap
