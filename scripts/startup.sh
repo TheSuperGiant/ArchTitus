@@ -338,7 +338,7 @@ case ${options[$?]} in
 				continent_list="options_$continent"
 				eval 'options=( "${'"$continent_list"'[@]}" )'
 				#echo "eval fallback. values: ${values[@]}"
-				select_option $? 3 "${options[@]}"
+				select_option $? 6 "${options[@]}"
 				
 				
 				
