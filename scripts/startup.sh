@@ -255,7 +255,7 @@ case ${options[$?]} in
 	select_option $? 4 "${options[@]}"
 	continent=${options[$?]} 
 	echo "$continent"
-	if [ continent == "retry" ]; then
+	if [ $continent == "retry" ]; then
 		echo "retry"
 		read -p "Press [Enter] to continue..."
 	else
