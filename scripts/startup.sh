@@ -253,7 +253,8 @@ case ${options[$?]} in
    # echo -e "\nPlease enter your desired timezone e.g. Europe/London :" 
 	options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
 	select_option $? 4 "${options[@]}"
-	if [ continent=${options[$?]} == "retry" ]; then
+	continent=${options[$?]} 
+	if [ continent == "retry" ]; then
 		echo "retry"
 		read -p "Press [Enter] to continue..."
 	else
