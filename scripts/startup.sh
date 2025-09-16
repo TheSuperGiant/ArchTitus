@@ -251,7 +251,8 @@ case ${options[$?]} in
     set_option TIMEZONE $time_zone;;
     n|N|no|NO|No)
     echo -e "\nPlease enter your desired timezone e.g. Europe/London :" 
-    read new_timezone
+	options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
+    #read new_timezone
     echo "${new_timezone} set as timezone"
     set_option TIMEZONE $new_timezone;;
     *) echo "Wrong option. Try again";timezone;;
