@@ -274,13 +274,15 @@ case ${options[$?]} in
 		for item in "${continents[@]}"; do
 			#echo "$item"
 			echo "$item - $continent"
-			read -p "Press [Enter] to continue..."
+			#read -p "Press [Enter] to continue..."
 			if [ $continent == "$item" ]; then
 				echo -e "good\n\n"
 				#echo -e "${options_$continent[@]}"
+				echo "$continent"
 				read -p "Press [Enter] to continue..."
 				
-				continent_list="${options_$continent}"
+				#continent_list="${options_$continent}"
+				continent_list=("${!continent_list_name[@]}")
 				echo "$continent_list"
 				read -p "Press [Enter] to continue..."
 				#echo "options_$continent"
