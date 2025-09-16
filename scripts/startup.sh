@@ -276,93 +276,24 @@ case ${options[$?]} in
 			echo "$item - $continent"
 			#read -p "Press [Enter] to continue..."
 			if [ $continent == "$item" ]; then
-				echo -e "good\n\n"
-				#echo -e "${options_$continent[@]}"
-				#echo "$options_Europe"
-				#read -p "Press [Enter] to continue..."
-				#echo "$continent"
-				#read -p "Press [Enter] to continue..."
-				
-				#continent_list="${options_$continent}"
-				#continent_list=("${!options_$continent[@]}")
-				#echo "$continent_list"
-				#continent_list_name="options_$continent"
-				#echo "$continent_list_name"
-				#echo "$continent_list[@]"
-				#echo "${continent_list[@]}"
-				#continent_list=("${!continent_list_name}") 
-				#echo "${!continent_list[@]}"
-				#read -p "Press [Enter] to continue..."
-				#echo "options_$continent"
-				#case ${options_$continent[$?]} in
-				#select_option $? 4 "${options_$continent[@]}"
-				#select_option $? 4 "${continent_list[@]}"
-				#select_option $? 4 "${!continent_list[@]}"
-				#select_option $? 4 "${!continent_list}"
-				#select_option $? 1 "${options_$continent[@]}"
-				
-				#continent_list="options_$continent"
-				#declare -n continent_list="options_$continent"
-				#echo "${!continent_list[@]}"
-				#select_option $? 4 "${!continent_list[@]}"
-				#continent_list="options_$continent"
-				#eval 'values=( "${'"$continent_list"'[@]}" )'
-				#select_option $? 4 "${values[@]}"
-				#select_option $? 4 "${continent_list[@]}"
-				#if declare -n list_ref="options_$continent" 2>/dev/null; then
-					#echo "nameref works. list contains: ${list_ref[@]}"
-					#select_option $? 4 "${list_ref[@]}"
-					#break
-				#fi
-				#continent_list="options_$continent"
-				#declare -n options="options_$continent"
-				#echo $options
-				#read -p "Press [Enter] to continue..."
-				#select_option "$?" 4 "${options[@]}"
-
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				continent_list="options_$continent"
 				eval 'options=( "${'"$continent_list"'[@]}" )'
-				#echo "eval fallback. values: ${values[@]}"
-				select_option $? 6 "${options[@]}"
+				echo "${options[@]}"
+				read city
+				echo $city
+				if [[ " ${options[@]} " =~ " $city " ]]; then
+					set_option TIMEZONE "$continent\$city"
+					break
+				fi
+				#if bigger support for options
+				#select_option $? 4 "${options[@]}"
 				
 				
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				#options="options_$continent"
-				#select_option $? 4 "${!options[@]}"
-				
-				
-				
-				
-				
-				read -p "Press [Enter] to continue..."
-				echo "$continent\options_$continent[$?]"
-				read -p "Press [Enter] to continue..."
+				#read -p "Press [Enter] to continue..."
+				#echo "$continent\options_$continent[$?]"
+				#read -p "Press [Enter] to continue..."
 				#"$continent\$city"
 				#break
 				#esac
