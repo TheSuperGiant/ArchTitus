@@ -262,7 +262,7 @@ case ${options[$?]} in
 	options_Asia=()
 	options_Atlantic=()
 	options_Australia=()
-	options_Europe=(Amsterdam Andorra Astrakhan Athens Belgrade Berlin Bratislava Brussels Bucharest Budapest Busingen Chisinau Copenhagen Dublin Gibraltar Guernsey Helsinki Isle of Man Istanbul Jersey Kaliningrad Kiev Kirov Lisbon Ljubljana London Luxembourg Madrid Malta Mariehamn Minsk Monaco Moscow Oslo Paris Podgorica Prague Riga Rome Samara San Marino Sarajevo Saratov Simferopol Skopje Sofia Stockholm Tallinn Tirane Ulyanovsk Uzhgorod Vaduz Vatican Vienna Vilnius Volgograd Warsaw Zagreb Zaporozhye Zurich)
+	options_Europe=("Amsterdam" "Andorra" "Astrakhan" "Athens" "Belgrade" "Berlin" "Bratislava" "Brussels" "Bucharest" "Budapest" "Busingen" "Chisinau" "Copenhagen" "Dublin" "Gibraltar" "Guernsey" "Helsinki" "Isle of Man" "Istanbul" "Jersey" "Kaliningrad" "Kiev" "Kirov" "Lisbon" "Ljubljana" "London" "Luxembourg" "Madrid" "Malta" "Mariehamn" "Minsk" "Monaco" "Moscow" "Oslo" "Paris" "Podgorica" "Prague" "Riga" "Rome" "Samara" "San Marino" "Sarajevo" "Saratov" "Simferopol" "Skopje" "Sofia" "Stockholm" "Tallinn" "Tirane" "Ulyanovsk" "Uzhgorod" "Vaduz" "Vatican" "Vienna" "Vilnius" "Volgograd" "Warsaw" "Zagreb" "Zaporozhye" "Zurich")
 	options_Indian=()
 	options_Pacific=()
 	if [ $continent == "retry" ]; then
@@ -315,11 +315,44 @@ case ${options[$?]} in
 					#break
 				#fi
 				#continent_list="options_$continent"
+				declare -n list="options_$continent"
+				select_option "$?" 4 "${list[@]}"
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				#eval 'options=( "${'"$continent_list"'[@]}" )'
 				#echo "eval fallback. values: ${values[@]}"
 				#select_option $? 4 "${options[@]}"
-				options="options_$continent"
-				select_option $? 4 "${!options[@]}"
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				#options="options_$continent"
+				#select_option $? 4 "${!options[@]}"
 				
 				
 				
