@@ -277,10 +277,12 @@ case ${options[$?]} in
 				echo -e "good\n\n"
 				echo -e "${options_$continent[@]}"
 				read -p "Press [Enter] to continue..."
-					
+				
+				continent_list="${options_$continent}"
 				#echo "options_$continent"
 				#case ${options_$continent[$?]} in
-					select_option $? 4 "${options_$continent[@]}"
+					#select_option $? 4 "${options_$continent[@]}"
+					select_option $? 4 "${continent_list[@]}"
 					#select_option $? 1 "${options_$continent[@]}"
 					echo "$continent\options_$continent[$?]"
 					read -p "Press [Enter] to continue..."
