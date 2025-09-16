@@ -286,7 +286,7 @@ case ${options[$?]} in
 					if [[ " ${options[@]} " =~ " $city " ]]; then
 						set_option TIMEZONE $new_timezone
 						echo "${new_timezone} set as timezone"
-						break 2
+						break 3
 					fi
 				#if bigger support for options in select_option
 				#select_option $? 4 "${options[@]}"
@@ -296,9 +296,9 @@ case ${options[$?]} in
 		done
 	fi
     #read new_timezone
-    echo "${new_timezone} set as timezone"
-    set_option TIMEZONE $new_timezone;;
-    *) echo "Wrong option. Try again";timezone;;
+    #echo "${new_timezone} set as timezone"
+    #set_option TIMEZONE $new_timezone;;
+    #*) echo "Wrong option. Try again";timezone;;
 esac
 }
 # @description Set user's keyboard mapping. 
