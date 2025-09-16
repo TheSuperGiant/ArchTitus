@@ -272,11 +272,11 @@ case ${options[$?]} in
 		echo "else"
 		continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 		for item in "${continents[@]}"; do
-			while :; do #only needed solong no bigger support for options in select_option
 			#echo "$item"
-				echo "$item - $continent"
-				#read -p "Press [Enter] to continue..."
-				if [ $continent == "$item" ]; then
+			echo "$item - $continent"
+			#read -p "Press [Enter] to continue..."
+			if [ $continent == "$item" ]; then
+				while :; do #only needed solong no bigger support for options in select_option
 					continent_list="options_$continent"
 					eval 'options=( "${'"$continent_list"'[@]}" )'
 					echo "${options[@]}"
@@ -291,8 +291,8 @@ case ${options[$?]} in
 				#if bigger support for options in select_option
 				#select_option $? 4 "${options[@]}"
 				#break
-				fi
-			done
+				done
+			fi
 		done
 	fi
     #read new_timezone
