@@ -278,33 +278,36 @@ case ${options[$?]} in
 			if [ $continent == "$item" ]; then
 				echo -e "good\n\n"
 				#echo -e "${options_$continent[@]}"
-				echo "$options_Europe"
-				read -p "Press [Enter] to continue..."
-				echo "$continent"
-				read -p "Press [Enter] to continue..."
+				#echo "$options_Europe"
+				#read -p "Press [Enter] to continue..."
+				#echo "$continent"
+				#read -p "Press [Enter] to continue..."
 				
 				#continent_list="${options_$continent}"
 				#continent_list=("${!options_$continent[@]}")
 				#echo "$continent_list"
-				continent_list_name="options_$continent"
-				echo "$continent_list_name"
+				#continent_list_name="options_$continent"
+				#echo "$continent_list_name"
 				#echo "$continent_list[@]"
 				#echo "${continent_list[@]}"
-				continent_list=("${!continent_list_name}") 
-				echo "${!continent_list[@]}"
-				read -p "Press [Enter] to continue..."
+				#continent_list=("${!continent_list_name}") 
+				#echo "${!continent_list[@]}"
+				#read -p "Press [Enter] to continue..."
 				#echo "options_$continent"
 				#case ${options_$continent[$?]} in
-					#select_option $? 4 "${options_$continent[@]}"
-					#select_option $? 4 "${continent_list[@]}"
-					select_option $? 4 "${!continent_list[@]}"
-					#select_option $? 4 "${!continent_list}"
-					#select_option $? 1 "${options_$continent[@]}"
-					read -p "Press [Enter] to continue..."
-					echo "$continent\options_$continent[$?]"
-					read -p "Press [Enter] to continue..."
-					#"$continent\$city"
-					#break
+				#select_option $? 4 "${options_$continent[@]}"
+				#select_option $? 4 "${continent_list[@]}"
+				#select_option $? 4 "${!continent_list[@]}"
+				#select_option $? 4 "${!continent_list}"
+				#select_option $? 1 "${options_$continent[@]}"
+				
+				continent_list="options_$continent"
+				select_option $? 4 "${!continent_list[@]}"
+				read -p "Press [Enter] to continue..."
+				echo "$continent\options_$continent[$?]"
+				read -p "Press [Enter] to continue..."
+				#"$continent\$city"
+				#break
 				#esac
 				#}
 			fi
