@@ -278,14 +278,14 @@ case ${options[$?]} in
 				read -p "Press [Enter] to continue..."
 					
 				#echo "options_$continent"
-				#case ${options_$continent[$?]} in
+				case ${options_$continent[$?]} in
 					select_option $? 4 "${options_$continent[@]}"
 					#select_option $? 1 "${options_$continent[@]}"
 					echo "$continent\options_$continent[$?]"
 					read -p "Press [Enter] to continue..."
 					#"$continent\$city"
 					#break
-				#esac
+				esac
 				#}
 			fi
 		done
