@@ -319,7 +319,7 @@ case ${options[$?]} in
 				#echo "eval fallback. values: ${values[@]}"
 				#select_option $? 4 "${options[@]}"
 				options="options_$continent"
-				select_option $? 4 "${options[@]}"
+				select_option $? 4 "${!options[@]}"
 				
 				
 				
