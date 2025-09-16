@@ -282,7 +282,7 @@ case ${options[$?]} in
 					echo "${options[@]}"
 					read city
 					city="$(tr '[:upper:]' '[:lower:]' <<< "$city")"
-					city="$(tr '[:lower:]' '[:upper:]' <<< "${output:0:1}")${city:1}"
+					city="$(tr '[:lower:]' '[:upper:]' <<< "${city:0:1}")${city:1}"
 					echo $city
 					new_timezone="${continent}\\${city}"
 					if [[ " ${options[@]} " =~ " $city " ]]; then
