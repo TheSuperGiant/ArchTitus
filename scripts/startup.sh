@@ -315,8 +315,8 @@ case ${options[$?]} in
 					#break
 				#fi
 				#continent_list="options_$continent"
-				declare -n list="options_$continent"
-				select_option "$?" 4 "${list[@]}"
+				declare -n options="options_$continent"
+				select_option "$?" 4 "${options[@]}"
 
 				
 				
@@ -333,7 +333,7 @@ case ${options[$?]} in
 				
 				
 				
-				
+				#continent_list="options_$continent"
 				#eval 'options=( "${'"$continent_list"'[@]}" )'
 				#echo "eval fallback. values: ${values[@]}"
 				#select_option $? 4 "${options[@]}"
