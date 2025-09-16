@@ -262,7 +262,7 @@ case ${options[$?]} in
 	options_Asia=()
 	options_Atlantic=()
 	options_Australia=()
-	options_Europe=("Amsterdam" "Andorra" "Astrakhan" "Athens" "Belgrade" "Berlin" "Bratislava" "Brussels" "Bucharest" "Budapest" "Busingen" "Chisinau" "Copenhagen" "Dublin" "Gibraltar" "Guernsey" "Helsinki" "Isle of Man" "Istanbul" "Jersey" "Kaliningrad" "Kiev" "Kirov" "Lisbon" "Ljubljana" "London" "Luxembourg" "Madrid" "Malta" "Mariehamn" "Minsk" "Monaco" "Moscow" "Oslo" "Paris" "Podgorica" "Prague" "Riga" "Rome" "Samara" "San Marino" "Sarajevo" "Saratov" "Simferopol" "Skopje" "Sofia" "Stockholm" "Tallinn" "Tirane" "Ulyanovsk" "Uzhgorod" "Vaduz" "Vatican" "Vienna" "Vilnius" "Volgograd" "Warsaw" "Zagreb" "Zaporozhye" "Zurich")
+	options_Europe=(Amsterdam Andorra Astrakhan Athens Belgrade Berlin Bratislava Brussels Bucharest Budapest Busingen Chisinau Copenhagen Dublin Gibraltar Guernsey Helsinki Isle of Man Istanbul Jersey Kaliningrad Kiev Kirov Lisbon Ljubljana London Luxembourg Madrid Malta Mariehamn Minsk Monaco Moscow Oslo Paris Podgorica Prague Riga Rome Samara San Marino Sarajevo Saratov Simferopol Skopje Sofia Stockholm Tallinn Tirane Ulyanovsk Uzhgorod Vaduz Vatican Vienna Vilnius Volgograd Warsaw Zagreb Zaporozhye Zurich)
 	options_Indian=()
 	options_Pacific=()
 	if [ $continent == "retry" ]; then
@@ -275,17 +275,18 @@ case ${options[$?]} in
 			echo "$item"
 			if [ "$continent" = "$item" ]; then
 				echo -e "good\n\n"
+				echo -e "${options_$continent[@]}"
 				read -p "Press [Enter] to continue..."
 					
 				#echo "options_$continent"
-				case ${options_$continent[$?]} in
+				#case ${options_$continent[$?]} in
 					select_option $? 4 "${options_$continent[@]}"
 					#select_option $? 1 "${options_$continent[@]}"
 					echo "$continent\options_$continent[$?]"
 					read -p "Press [Enter] to continue..."
 					#"$continent\$city"
 					#break
-				esac
+				#esac
 				#}
 			fi
 		done
