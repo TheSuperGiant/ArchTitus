@@ -288,11 +288,11 @@ case ${options[$?]} in
 						echo "${new_timezone} set as timezone"
 						break 2
 					fi
-				done
 				#if bigger support for options in select_option
 				#select_option $? 4 "${options[@]}"
 				#break
-			fi
+				fi
+			done
 		done
 	fi
     #read new_timezone
