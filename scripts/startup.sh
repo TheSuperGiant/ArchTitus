@@ -314,11 +314,12 @@ case ${options[$?]} in
 					#select_option $? 4 "${list_ref[@]}"
 					#break
 				#fi
-				continent_list="options_$continent"
-				eval 'options=( "${'"$continent_list"'[@]}" )'
-				echo "eval fallback. values: ${values[@]}"
+				#continent_list="options_$continent"
+				#eval 'options=( "${'"$continent_list"'[@]}" )'
+				#echo "eval fallback. values: ${values[@]}"
+				#select_option $? 4 "${options[@]}"
+				options="options_$continent"
 				select_option $? 4 "${options[@]}"
-				
 				
 				
 				
