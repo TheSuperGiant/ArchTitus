@@ -236,7 +236,8 @@ while :; do
 		# Added this from arch wiki https://wiki.archlinux.org/title/System_time
 	   time_zone="$(curl -s --fail https://ipapi.co/timezone)"
 		if [ -n "$time_zone" ]; then
-			break
+			retrun
+			#break
 		fi
 		sleep 0.25
 		echo "Failed to grep time zone ($i/5)"
