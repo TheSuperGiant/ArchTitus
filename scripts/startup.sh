@@ -225,64 +225,73 @@ esac
 }
 # @description Detects and sets timezone. 
 timezone () {
-#Retry grep time zone 5 times if online fetch fails.
-for i in $(seq 5); do
-	# Added this from arch wiki https://wiki.archlinux.org/title/System_time
-   time_zone="$(curl -s --fail https://ipapi.co/timezone)"
+while :; do
+	#Retry grep time zone 5 times if online fetch fails.
+	for i in $(seq 5); do
+		# Added this from arch wiki https://wiki.archlinux.org/title/System_time
+	   time_zone="$(curl -s --fail https://ipapi.co/timezone)"
+		if [ -n "$time_zone" ]; then
+			break
+		fi
+		sleep 0.25
+		echo "Failed to grep time zone ($i/5)"
+	done
+
 	if [ -n "$time_zone" ]; then
-		break
-	fi
-	sleep 0.25
-	echo "Failed to grep time zone ($i/5)"
-done
-
-if [ -n "$time_zone" ]; then
-	echo -ne "\nSystem detected your timezone to be '$time_zone' \n"
-	echo -ne "Is this correct?\n" 
-	options=("Yes" "No")
-	select_option $? 1 "${options[@]}"
-else
-	options="No"
-fi
-
-case ${options[$?]} in
-    y|Y|yes|Yes|YES)
-    echo "${time_zone} set as timezone"
-    set_option TIMEZONE $time_zone;;
-    n|N|no|NO|No)
-	options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
-	select_option $? 4 "${options[@]}"
-	continent=${options[$?]}
-	if [ $continent == "retry" ]; then
-		echo "retry"
-		read -p "Press [Enter] to continue..."
+		echo -ne "\nSystem detected your timezone to be '$time_zone' \n"
+		echo -ne "Is this correct?\n" 
+		options=("Yes" "No")
+		select_option $? 1 "${options[@]}"
 	else
-		continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
-		for item in "${continents[@]}"; do
-			if [ $continent == "$item" ]; then
-				mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g')
-				echo -e "Choose a timezone:\n\n"
-				cols=6
-				for i in "${!cities[@]}"; do
-					num=$((i+1))
-					printf "%3d) %-15s" "$num" "${cities[$i]}"
-					(( num % cols == 0 )) && echo
-				done
-				echo -e "\n\n"
-				read -p "Enter number: " choice
-				city="${cities[$((choice-1))]}"
-				echo -e "\n\nYou selected: $city"
-				new_timezone="${continent}/${city}"
-				set_option TIMEZONE $new_timezone
-				echo "${new_timezone} set as timezone"
-				break 3
-				#if bigger support for options in select_option
-				#select_option $? 4 "${options[@]}"
-				#break
-			fi
-		done
+		options="No"
 	fi
-esac
+
+	case ${options[$?]} in
+		y|Y|yes|Yes|YES)
+		echo "${time_zone} set as timezone"
+		set_option TIMEZONE $time_zone;;
+		n|N|no|NO|No)
+		options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
+		select_option $? 4 "${options[@]}"
+		continent=${options[$?]}
+		if [ $continent == "retry" ]; then
+			echo "retry"
+			#read -p "Press [Enter] to continue..."
+		else
+			continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
+			for item in "${continents[@]}"; do
+				if [ $continent == "$item" ]; then
+					#mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g')
+					mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um)
+					echo -e "Choose a timezone:\n\n"
+					cols=6
+					for i in "${!cities[@]}"; do
+						num=$((i+1))
+						printf "%3d) %-15s" "$num" "${cities[$i]}"
+						(( num % cols == 0 )) && echo
+					done
+					echo -e "\n\n"
+					read -p "Enter number: " choice
+					city="${cities[$((choice-1))]}"
+					echo -e "\n\nYou selected: $city"
+					echo -ne "Is this correct?\n" 
+					options=("Yes" "No")
+					select_option $? 1 "${options[@]}"
+					if [ $options =~ " n N no NO No " ]; then
+						new_timezone="${continent}/${city}"
+						set_option TIMEZONE $new_timezone
+						echo "${new_timezone} set as timezone"
+						#break 3
+						break 4
+					fi
+					#if bigger support for options in select_option
+					#select_option $? 4 "${options[@]}"
+					#break
+				fi
+			done
+		fi
+	esac
+done
 }
 # @description Set user's keyboard mapping. 
 keymap () {
