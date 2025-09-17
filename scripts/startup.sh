@@ -278,7 +278,7 @@ while :; do
 					echo -e "\n\n"
 					read -p "Enter number: " choice
 					city="${cities[$((choice-1))]}"
-					echo -e "\n\nYou selected: $city"
+					echo -e "\n\nYou selected: $city\n\n"
 					echo -ne "Is this correct?\n" 
 					options=("Yes" "No")
 					select_option $? 1 "${options[@]}"
@@ -286,7 +286,7 @@ while :; do
 					if [[ $correct =~ ^(y|Y|yes|Yes|YES)$ ]]; then
 					#if [[ " y Y yes Yes YES " == $correct ]]; then
 						#new_timezone="${continent}/${city}"
-						new_timezone=$(timedatectl list-timezones | grep -i "/$search$")
+						new_timezone=$(timedatectl list-timezones | grep -i "/$city$")
 						set_option TIMEZONE $new_timezone
 						echo "${new_timezone} set as timezone"
 						#break 3
