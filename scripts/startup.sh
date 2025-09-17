@@ -254,7 +254,6 @@ case ${options[$?]} in
 	options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
 	select_option $? 4 "${options[@]}"
 	continent=${options[$?]} 
-	#echo "$continent"
 	options_Africa=()
 	options_America=()
 	options_Antarctica=()
@@ -262,63 +261,39 @@ case ${options[$?]} in
 	options_Asia=()
 	options_Atlantic=()
 	options_Australia=()
-	#options_Europe=("Amsterdam" "Andorra" "Astrakhan" "Athens" "Belgrade" "Berlin" "Bratislava" "Brussels" "Bucharest" "Budapest" "Busingen" "Chisinau" "Copenhagen" "Dublin" "Gibraltar" "Guernsey" "Helsinki" "Isle of Man" "Istanbul" "Jersey" "Kaliningrad" "Kiev" "Kirov" "Lisbon" "Ljubljana" "London" "Luxembourg" "Madrid" "Malta" "Mariehamn" "Minsk" "Monaco" "Moscow" "Oslo" "Paris" "Podgorica" "Prague" "Riga" "Rome" "Samara" "San Marino" "Sarajevo" "Saratov" "Simferopol" "Skopje" "Sofia" "Stockholm")
 	options_Indian=()
 	options_Pacific=()
 	if [ $continent == "retry" ]; then
 		echo "retry"
 		read -p "Press [Enter] to continue..."
 	else
-		#echo "else"
 		continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 		for item in "${continents[@]}"; do
-			#echo "$item"
-			#echo "$item - $continent"
-			#read -p "Press [Enter] to continue..."
 			if [ $continent == "$item" ]; then
-				#while :; do #only needed solong no bigger support for options in select_option
-					#continent_list="options_$continent"
-					#eval 'options=( "${'"$continent_list"'[@]}" )'
-					#echo "${options[@]}"
-					#read city
-					#city="$(tr '[:upper:]' '[:lower:]' <<< "$city")"
-					#city="$(tr '[:lower:]' '[:upper:]' <<< "${city:0:1}")${city:1}"
-					#echo $city
-					#new_timezone="${continent}//${city}"
-					mapfile -t cities < <(
-					timedatectl list-timezones | grep '^Europe/' | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g'
-					)
-
-					echo "Choose a timezone:"
-					cols=6
-					for i in "${!cities[@]}"; do
-						num=$((i+1))
-						printf "%2d) %-15s" "$num" "${cities[$i]}"
-						(( num % cols == 0 )) && echo
-					done
-					echo
-					read -p "Enter number: " choice
-					city="${cities[$((choice-1))]}"
-					echo "You selected: $city"
-					
-					
-					new_timezone="${continent}/${city}"
-					#if [[ " ${options[@]} " =~ " $city " ]]; then
-						set_option TIMEZONE $new_timezone
-						echo "${new_timezone} set as timezone"
-						break 3
-					#fi
+				mapfile -t cities < <(
+				timedatectl list-timezones | grep '^$continent/' | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g'
+				)
+				echo "Choose a timezone:"
+				cols=6
+				for i in "${!cities[@]}"; do
+					num=$((i+1))
+					printf "%2d) %-15s" "$num" "${cities[$i]}"
+					(( num % cols == 0 )) && echo
+				done
+				echo
+				read -p "Enter number: " choice
+				city="${cities[$((choice-1))]}"
+				echo "You selected: $city"
+				new_timezone="${continent}/${city}"
+				set_option TIMEZONE $new_timezone
+				echo "${new_timezone} set as timezone"
+				break 3
 				#if bigger support for options in select_option
 				#select_option $? 4 "${options[@]}"
 				#break
-				#done
 			fi
 		done
 	fi
-    #read new_timezone
-    #echo "${new_timezone} set as timezone"
-    #set_option TIMEZONE $new_timezone;;
-    #*) echo "Wrong option. Try again";timezone;;
 esac
 }
 # @description Set user's keyboard mapping. 
