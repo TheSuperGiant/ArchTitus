@@ -235,7 +235,7 @@ while :; do
 		# Added this from arch wiki https://wiki.archlinux.org/title/System_time
 	   time_zone="$(curl -s --fail https://ipapi.co/timezone)"
 		if [ -n "$time_zone" ]; then
-			break 2
+			break
 		fi
 		sleep 0.25
 		echo "Failed to grep time zone ($i/5)"
@@ -253,7 +253,8 @@ while :; do
 	case ${options[$?]} in
 		y|Y|yes|Yes|YES)
 		echo "${time_zone} set as timezone"
-		set_option TIMEZONE $time_zone;;
+		set_option TIMEZONE $time_zone
+		break;;
 		n|N|no|NO|No)
 		options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
 		select_option $? 4 "${options[@]}"
@@ -281,8 +282,9 @@ while :; do
 					echo -ne "Is this correct?\n" 
 					options=("Yes" "No")
 					select_option $? 1 "${options[@]}"
-					#if [[ $options =~ ^(y|Y|yes|Yes|YES)$ ]]; then
-					if [[ " y Y yes Yes YES " == $options ]]; then
+					correct=${options[$?]}
+					if [[ $correct =~ ^(y|Y|yes|Yes|YES)$ ]]; then
+					#if [[ " y Y yes Yes YES " == $correct ]]; then
 						#new_timezone="${continent}/${city}"
 						new_timezone=$(timedatectl list-timezones | grep -i "/$search$")
 						set_option TIMEZONE $new_timezone
