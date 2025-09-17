@@ -320,22 +320,6 @@ else
     echo "hdd"
 	set_option MOUNT_OPTIONS "noatime,compress=zstd,commit=120"
 fi
-read -p "Press [Enter] to continue..."
-
-#echo -ne "
-#Is this an ssd? yes/no:
-#"
-
-#options=("Yes" "No")
-#select_option $? 1 "${options[@]}"
-
-#case ${options[$?]} in
-   # y|Y|yes|Yes|YES)
-   # set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120";;
-   # n|N|no|NO|No)
-   # set_option MOUNT_OPTIONS #"noatime,compress=zstd,commit=120";;
-    #*) echo "Wrong option. Try again";drivessd;;
-#esac
 }
 
 # @description Disk selection for drive to be used with installation.
@@ -420,8 +404,8 @@ desktopenv
 set_option INSTALL_TYPE MINIMAL
 set_option AUR_HELPER NONE
 if [[ ! $desktop_env == server ]]; then
-  clear
-  logo
+  #clear
+  #logo
   #aurhelper
   clear
   logo
