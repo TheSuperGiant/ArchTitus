@@ -283,8 +283,8 @@ case ${options[$?]} in
 					read city
 					city="$(tr '[:upper:]' '[:lower:]' <<< "$city")"
 					city="$(tr '[:lower:]' '[:upper:]' <<< "${city:0:1}")${city:1}"
-					echo $city
-					new_timezone="${continent}\\${city}"
+					#echo $city
+					new_timezone="${continent}//${city}"
 					if [[ " ${options[@]} " =~ " $city " ]]; then
 						set_option TIMEZONE $new_timezone
 						echo "${new_timezone} set as timezone"
@@ -435,5 +435,5 @@ logo
 timezone
 #clear
 #logo
-read -p "Press [Enter] to continue..."
+#read -p "Press [Enter] to continue..."
 keymap
