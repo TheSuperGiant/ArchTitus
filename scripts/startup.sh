@@ -225,10 +225,10 @@ esac
 }
 # @description Detects and sets timezone. 
 timezone () {
-#if [ -n "$time_zone" ]; then
-	#set_option TIMEZONE $new_timezone
-	#break
-#fi
+if [ -n "$time_zone" ]; then
+	set_option TIMEZONE $new_timezone
+	break
+fi
 while :; do
 	#Retry grep time zone 5 times if online fetch fails.
 	for i in $(seq 5); do
@@ -261,12 +261,10 @@ while :; do
 		continent=${options[$?]}
 		if [ $continent == "retry" ]; then
 			echo "retry"
-			#read -p "Press [Enter] to continue..."
 		else
 			continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 			for item in "${continents[@]}"; do
 				if [ $continent == "$item" ]; then
-					#mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g')
 					mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um)
 					echo -e "Choose a timezone:\n\n"
 					cols=6
@@ -428,7 +426,6 @@ filesystem
 clear
 logo
 timezone
-#clear
-#logo
-#read -p "Press [Enter] to continue..."
+lear
+logo
 keymap
