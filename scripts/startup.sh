@@ -427,6 +427,6 @@ filesystem
 clear
 logo
 timezone
-lear
+clear
 logo
 keymap
