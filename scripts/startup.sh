@@ -283,8 +283,8 @@ while :; do
 					select_option $? 1 "${options[@]}"
 					#if [[ $options =~ ^(y|Y|yes|Yes|YES)$ ]]; then
 					if [[ " y Y yes Yes YES " == $options ]]; then
-						new_timezone="${continent}/${city}"
-						full_tz=$(timedatectl list-timezones | grep -i "/$search$")
+						#new_timezone="${continent}/${city}"
+						new_timezone=$(timedatectl list-timezones | grep -i "/$search$")
 						set_option TIMEZONE $new_timezone
 						echo "${new_timezone} set as timezone"
 						#break 3
