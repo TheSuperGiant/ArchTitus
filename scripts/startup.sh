@@ -269,11 +269,11 @@ case ${options[$?]} in
 		echo "retry"
 		read -p "Press [Enter] to continue..."
 	else
-		echo "else"
+		#echo "else"
 		continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 		for item in "${continents[@]}"; do
 			#echo "$item"
-			echo "$item - $continent"
+			#echo "$item - $continent"
 			#read -p "Press [Enter] to continue..."
 			if [ $continent == "$item" ]; then
 				while :; do #only needed solong no bigger support for options in select_option
@@ -284,7 +284,8 @@ case ${options[$?]} in
 					city="$(tr '[:upper:]' '[:lower:]' <<< "$city")"
 					city="$(tr '[:lower:]' '[:upper:]' <<< "${city:0:1}")${city:1}"
 					#echo $city
-					new_timezone="${continent}//${city}"
+					#new_timezone="${continent}//${city}"
+					new_timezone="${continent}/${city}"
 					if [[ " ${options[@]} " =~ " $city " ]]; then
 						set_option TIMEZONE $new_timezone
 						echo "${new_timezone} set as timezone"
