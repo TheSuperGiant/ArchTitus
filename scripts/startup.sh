@@ -255,7 +255,7 @@ while :; do
 		y|Y|yes|Yes|YES)
 		echo "${time_zone} set as timezone"
 		set_option TIMEZONE $time_zone
-		break;;
+		return;;
 		n|N|no|NO|No)
 		options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
 		select_option $? 4 "${options[@]}"
