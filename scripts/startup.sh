@@ -225,11 +225,10 @@ esac
 }
 # @description Detects and sets timezone. 
 timezone () {
-echo $time_zone
 if [ "$time_zone" ]; then
 	set_option TIMEZONE $time_zone
 	echo "${time_zone} set as timezone"
-	break
+	return
 fi
 while :; do
 	#Retry grep time zone 5 times if online fetch fails.
