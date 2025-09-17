@@ -225,8 +225,10 @@ esac
 }
 # @description Detects and sets timezone. 
 timezone () {
-if [ -n "$time_zone" ]; then
-	set_option TIMEZONE $new_timezone
+if [ "$time_zone" ]; then
+	set_option TIMEZONE $time_zone
+	echo $time_zone
+	read -p "Press [Enter] to continue..."
 	break
 fi
 while :; do
