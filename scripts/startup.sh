@@ -315,25 +315,27 @@ set_option KEYMAP $keymap
 drivessd () {
 if [ "$(cat /sys/block/$(basename $disk)/queue/rotational)" -eq 0 ]; then
     echo "ssd"
+	set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120"
 else
     echo "hdd"
+	set_option MOUNT_OPTIONS "noatime,compress=zstd,commit=120"
 fi
 read -p "Press [Enter] to continue..."
 
-echo -ne "
-Is this an ssd? yes/no:
-"
+#echo -ne "
+#Is this an ssd? yes/no:
+#"
 
-options=("Yes" "No")
-select_option $? 1 "${options[@]}"
+#options=("Yes" "No")
+#select_option $? 1 "${options[@]}"
 
-case ${options[$?]} in
-    y|Y|yes|Yes|YES)
-    set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120";;
-    n|N|no|NO|No)
-    set_option MOUNT_OPTIONS "noatime,compress=zstd,commit=120";;
-    *) echo "Wrong option. Try again";drivessd;;
-esac
+#case ${options[$?]} in
+   # y|Y|yes|Yes|YES)
+   # set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120";;
+   # n|N|no|NO|No)
+   # set_option MOUNT_OPTIONS #"noatime,compress=zstd,commit=120";;
+    #*) echo "Wrong option. Try again";drivessd;;
+#esac
 }
 
 # @description Disk selection for drive to be used with installation.
