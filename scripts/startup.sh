@@ -228,8 +228,7 @@ timezone () {
 echo $time_zone
 if [ "$time_zone" ]; then
 	set_option TIMEZONE $time_zone
-	echo $time_zone
-	read -p "Press [Enter] to continue..."
+	echo "${time_zone} set as timezone"
 	break
 fi
 while :; do
@@ -422,8 +421,6 @@ if [[ ! $desktop_env == server ]]; then
 fi
 clear
 logo
-echo "$time_zone"
-
 diskpart
 clear
 logo
