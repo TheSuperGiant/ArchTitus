@@ -225,6 +225,7 @@ esac
 }
 # @description Detects and sets timezone. 
 timezone () {
+echo $time_zone
 if [ "$time_zone" ]; then
 	set_option TIMEZONE $time_zone
 	echo $time_zone
