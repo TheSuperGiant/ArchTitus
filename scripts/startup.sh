@@ -313,6 +313,13 @@ set_option KEYMAP $keymap
 
 # @description Choose whether drive is SSD or not.
 drivessd () {
+if [ "$(cat /sys/block/$(basename $disk)/queue/rotational)" -eq 0 ]; then
+    echo "ssd"
+else
+    echo "hdd"
+fi
+read -p "Press [Enter] to continue..."
+
 echo -ne "
 Is this an ssd? yes/no:
 "
