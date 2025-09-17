@@ -8,8 +8,6 @@
 
 # @setting-header General Settings
 # @setting CONFIG_FILE string[$CONFIGS_DIR/setup.conf] Location of setup.conf to be used by set_option and all subsequent scripts. 
-echo "$time_zone"
-
 CONFIG_FILE=$CONFIGS_DIR/setup.conf
 if [ ! -f $CONFIG_FILE ]; then # check if file exists
     touch -f $CONFIG_FILE # create file if not exists
@@ -424,6 +422,8 @@ if [[ ! $desktop_env == server ]]; then
 fi
 clear
 logo
+echo "$time_zone"
+
 diskpart
 clear
 logo
