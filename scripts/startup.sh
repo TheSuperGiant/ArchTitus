@@ -270,9 +270,9 @@ case ${options[$?]} in
 		continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 		for item in "${continents[@]}"; do
 			if [ $continent == "$item" ]; then
-				mapfile -t cities < <(
-				timedatectl list-timezones | grep '^$continent/' | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g'
-				)
+				echo $continent
+				#mapfile -t cities < <(timedatectl list-timezones | grep '^$continent/' | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g')
+				mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g')
 				echo "Choose a timezone:"
 				cols=6
 				for i in "${!cities[@]}"; do
