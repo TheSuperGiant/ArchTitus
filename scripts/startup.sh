@@ -273,7 +273,7 @@ case ${options[$?]} in
 				echo $continent
 				#mapfile -t cities < <(timedatectl list-timezones | grep '^$continent/' | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g')
 				mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um | sed 's/_/ /g')
-				echo "Choose a timezone:"
+				echo -e "\n\nChoose a timezone:"
 				cols=6
 				for i in "${!cities[@]}"; do
 					num=$((i+1))
