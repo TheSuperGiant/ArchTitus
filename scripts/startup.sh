@@ -277,7 +277,7 @@ while :; do
 					echo -ne "Is this correct?\n" 
 					options=("Yes" "No")
 					select_option $? 1 "${options[@]}"
-					if [ $options =~ " n N no NO No " ]; then
+					if [ $options =~ ^(n|N|no|NO|No)$ ]; then
 						new_timezone="${continent}/${city}"
 						set_option TIMEZONE $new_timezone
 						echo "${new_timezone} set as timezone"
