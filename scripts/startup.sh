@@ -379,7 +379,7 @@ userinfo () {
 set_username "USERNAME"
 set_password "PASSWORD"
 #read -rep "Please enter your hostname: " nameofmachine
-set_option NAME_OF_MACHINE $nameofmachine
+#set_option NAME_OF_MACHINE $nameofmachine
 set_hostname "nameofmachine"
 }
 
