@@ -38,6 +38,18 @@ set_password() {
 	done
 }
 
+set_username() {
+	while :; do
+		read -p "Please enter your username: " username
+		if [[ $1 =~ ^[a-z][-a-z0-9._]*$ && ! $1 =~ [-.]$ ]]; then
+			set_option USERNAME ${1,,} # convert to lower case as in issue #109
+			break
+		else
+			echo "Invalid. Use only: a–z, 0–9, -, _, .  (not starting with digit, - or .)"
+		fi
+	done
+}
+
 root_check() {
     if [[ "$(id -u)" != "0" ]]; then
         echo -ne "ERROR! This script must be run under the 'root' user!\n"
@@ -351,8 +363,9 @@ drivessd
 
 # @description Gather username and password to be used for installation. 
 userinfo () {
-read -p "Please enter your username: " username
-set_option USERNAME ${username,,} # convert to lower case as in issue #109 
+#read -p "Please enter your username: " username
+#set_option USERNAME ${username,,} # convert to lower case as in issue #109 
+set_username "USERNAME"
 set_password "PASSWORD"
 read -rep "Please enter your hostname: " nameofmachine
 set_option NAME_OF_MACHINE $nameofmachine
