@@ -25,13 +25,14 @@ set_option() {
 
 set_hostname() {
 	read -rep "Please enter your hostname: " nameofmachine
-	if [[ $nameofmachine =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]]; then
-		set_option $1 $nameofmachine
-		break
-	else
-		echo "Invalid. Use only: a–z, 0–9, -  (no start/end with -)"
-	fi
-done
+	while :; do
+		if [[ $nameofmachine =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]]; then
+			set_option $1 $nameofmachine
+			break
+		else
+			echo "ERROR! Use only: a–z, 0–9, -  (no start/end with -)"
+		fi
+	done
 }
 
 set_password() {
@@ -56,7 +57,7 @@ set_username() {
 			set_option $1 ${username,,} # convert to lower case as in issue #109
 			break
 		else
-			echo "Invalid. Use only: a–z, 0–9, -, _, .  (not starting with digit, - or .)"
+			echo "ERROR! Use only: a–z, 0–9, -, _, .  (not starting with digit, - or .)"
 		fi
 	done
 }
