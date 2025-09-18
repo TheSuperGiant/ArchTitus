@@ -23,6 +23,17 @@ set_option() {
     echo "${1}=${2}" >>$CONFIG_FILE # add option
 }
 
+set_hostname() {
+	read -rep "Please enter your hostname: " nameofmachine
+	if [[ $nameofmachine =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]]; then
+		set_option $1 $nameofmachine
+		break
+	else
+		echo "Invalid. Use only: a–z, 0–9, -  (no start/end with -)"
+	fi
+done
+}
+
 set_password() {
 	while :; do
 		read -rs -p "Please enter password: " PASSWORD1
@@ -367,8 +378,9 @@ userinfo () {
 #set_option USERNAME ${username,,} # convert to lower case as in issue #109 
 set_username "USERNAME"
 set_password "PASSWORD"
-read -rep "Please enter your hostname: " nameofmachine
+#read -rep "Please enter your hostname: " nameofmachine
 set_option NAME_OF_MACHINE $nameofmachine
+set_hostname "nameofmachine"
 }
 
 # @description Choose AUR helper. 
