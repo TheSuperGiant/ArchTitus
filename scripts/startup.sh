@@ -370,23 +370,26 @@ set_option NAME_OF_MACHINE $nameofmachine
 
 # @description Choose Desktop Environment
 desktopenv () {
-  # Let the user choose Desktop Enviroment from predefined list
-  echo -ne "Please select your desired Desktop Enviroment:\n"
-  options=( `for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done` )
-  select_option $? 4 "${options[@]}"
-  desktop_env=${options[$?]}
-  set_option DESKTOP_ENV $desktop_env
+	# Let the user choose Desktop Enviroment from predefined list
+	echo -ne "Please select your desired Desktop Enviroment:\n"
+	options=( `for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done` )
+	select_option $? 4 "${options[@]}"
+	desktop_env=${options[$?]}
+	set_option DESKTOP_ENV $desktop_env
 }
 
 # @description Choose whether to do full or minimal installation. 
 installtype () {
-  echo -ne "Please select type of installation:\n\n
-  Full install: Installs full featured desktop enviroment, with added apps and themes needed for everyday use\n
-  Minimal Install: Installs only apps few selected apps to get you started\n"
-  options=(FULL MINIMAL)
-  select_option $? 4 "${options[@]}"
-  install_type=${options[$?]}
-  set_option INSTALL_TYPE $install_type
+	#if [ -z "$install_type" ]; then
+	if [ " FULL MINIMAL " ==  "$install_type" ]; then
+		echo -ne "Please select type of installation:\n\n
+		Full install: Installs full featured desktop enviroment, with added apps and themes needed for everyday use\n
+		Minimal Install: Installs only apps few selected apps to get you started\n"
+		options=(FULL MINIMAL)
+		select_option $? 4 "${options[@]}"
+		install_type=${options[$?]}
+	fi
+	set_option INSTALL_TYPE $install_type
 }
 
 # More features in future
