@@ -24,8 +24,8 @@ set_option() {
 }
 
 set_hostname() {
-	read -rep "Please enter your hostname: " nameofmachine
 	while :; do
+		read -rep "Please enter your hostname: " nameofmachine
 		if [[ $nameofmachine =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]]; then
 			set_option $1 $nameofmachine
 			break
