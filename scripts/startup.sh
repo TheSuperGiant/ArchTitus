@@ -386,13 +386,13 @@ set_hostname "nameofmachine"
 
 # @description Choose AUR helper. 
 #aurhelper () {
-  # Let the user choose AUR helper from predefined list
-  #echo -ne "Please enter your desired AUR helper:\n"
-  #options=(paru yay picaur aura trizen pacaur none)
- # select_option $? 4 "${options[@]}"
- # aur_helper=${options[$?]}
- # set_option AUR_HELPER $aur_helper
-#}
+    #Let the user choose AUR helper from predefined list
+    #echo -ne "Please enter your desired AUR helper:\n"
+    #options=(paru yay picaur aura trizen pacaur none)
+    #select_option $? 4 "${options[@]}"
+    #aur_helper=${options[$?]}
+    #set_option AUR_HELPER $aur_helper
+}
 
 # @description Choose Desktop Environment
 desktopenv () {
@@ -430,12 +430,12 @@ desktopenv
 set_option INSTALL_TYPE MINIMAL
 set_option AUR_HELPER NONE
 if [[ ! $desktop_env == server ]]; then
-  #clear
-  #logo
-  #aurhelper
-  clear
-  logo
-  installtype
+    #clear
+    #logo
+    #aurhelper
+    clear
+    logo
+    installtype
 fi
 clear
 logo

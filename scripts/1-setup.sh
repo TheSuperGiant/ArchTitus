@@ -43,8 +43,8 @@ echo -ne "
 "
 TOTAL_MEM=$(cat /proc/meminfo | grep -i 'memtotal' | grep -o '[[:digit:]]*')
 if [[  $TOTAL_MEM -gt 8000000 ]]; then
-sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$nc\"/g" /etc/makepkg.conf
-sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $nc -z -)/g" /etc/makepkg.conf
+    sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$nc\"/g" /etc/makepkg.conf
+    sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $nc -z -)/g" /etc/makepkg.conf
 fi
 echo -ne "
 -------------------------------------------------------------------------
@@ -79,15 +79,15 @@ echo -ne "
 # sed $INSTALL_TYPE is using install type to check for MINIMAL installation, if it's true, stop
 # stop the script and move on, not installing any more packages below that line
 if [[ ! $DESKTOP_ENV == server ]]; then
-  sed -n '/'$INSTALL_TYPE'/q;p' $HOME/ArchTitus/pkg-files/pacman-pkgs.txt | while read line
-  do
-    if [[ ${line} == '--END OF MINIMAL INSTALL--' ]]; then
-      # If selected installation type is FULL, skip the --END OF THE MINIMAL INSTALLATION-- line
-      continue
-    fi
-    echo "INSTALLING: ${line}"
-    sudo pacman -S --noconfirm --needed ${line}
-  done
+    sed -n '/'$INSTALL_TYPE'/q;p' $HOME/ArchTitus/pkg-files/pacman-pkgs.txt | while read line
+    do
+        if [[ ${line} == '--END OF MINIMAL INSTALL--' ]]; then
+          # If selected installation type is FULL, skip the --END OF THE MINIMAL INSTALLATION-- line
+            continue
+        fi
+        echo "INSTALLING: ${line}"
+        sudo pacman -S --noconfirm --needed ${line}
+    done
 fi
 echo -ne "
 -------------------------------------------------------------------------
