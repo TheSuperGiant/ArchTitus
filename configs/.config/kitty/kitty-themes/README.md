@@ -33,28 +33,28 @@ the previews for each theme in the [section](#previews) below or in this other
 ### Source Code
 
 1. If you want to download and use one of these theme you have two options:
-    - clone the entire *kitty-themes* repository:
-      ```bash
-      git clone --depth 1 git@github.com:dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
-      ```
+	- clone the entire *kitty-themes* repository:
+	  ```bash
+	  git clone --depth 1 git@github.com:dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
+	  ```
    - or download just one theme:
-      ```bash
-      THEME=https://raw.githubusercontent.com/dexpota/kitty-themes/master/themes/3024_Day.conf
-      wget "$THEME" -P ~/.config/kitty/kitty-themes/themes
-      ```
+	  ```bash
+	  THEME=https://raw.githubusercontent.com/dexpota/kitty-themes/master/themes/3024_Day.conf
+	  wget "$THEME" -P ~/.config/kitty/kitty-themes/themes
+	  ```
 
 2. Choose a theme and create a symlink:
 
-    ```bash
-    cd ~/.config/kitty
-    ln -s ./kitty-themes/themes/Floraverse.conf ~/.config/kitty/theme.conf
-    ```
+	```bash
+	cd ~/.config/kitty
+	ln -s ./kitty-themes/themes/Floraverse.conf ~/.config/kitty/theme.conf
+	```
 
 3. Add this line to your kitty.conf configuration file:
 
-    ```
-    include ./theme.conf
-    ```
+	```
+	include ./theme.conf
+	```
 
 ### Conda
 
@@ -79,17 +79,17 @@ the entire repo, you have two options to try a theme:
 
 1. If you have enabled remote control in *kitty* you can run this command:
 
-    ```bash
-    kitty @ set-colors -a "~/.config/kitty/kitty-themes/themes/AdventureTime.conf"
-    ```
+	```bash
+	kitty @ set-colors -a "~/.config/kitty/kitty-themes/themes/AdventureTime.conf"
+	```
 
 2. Otherwise you can start another instance of kitty and specify another config
   file to read from, this will cause *kitty* to read both its normal config
   file and the specified one:
 
-    ```bash
-    kitty -o include="~/.config/kitty/kitty-themes/themes/AdventureTime.conf"
-    ```
+	```bash
+	kitty -o include="~/.config/kitty/kitty-themes/themes/AdventureTime.conf"
+	```
 
 ### Bonus
 
@@ -446,17 +446,17 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore -->
 <table>
   <tr>
-    <td align="center"><a href="http://www.scopatz.com"><b>Anthony Scopatz</b></a><br /><a href="https://github.com/dexpota/kitty-themes/commits?author=scopatz" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://rckt.cc"><b>RCKT</b></a><br /><a href="#theme-orangecoloured" title="New theme added to the collection">😻</a></td>
-    <td align="center"><a href="https://github.com/varmanishant"><b>varmanishant</b></a><br /><a href="#theme-varmanishant" title="New theme added to the collection">😻</a></td>
-    <td align="center"><a href="https://github.com/rlerdorf"><b>Rasmus Lerdorf</b></a><br /><a href="https://github.com/dexpota/kitty-themes/issues?q=author%3Arlerdorf" title="Bug reports">🐛</a> <a href="#ideas-rlerdorf" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/Luflosi"><b>Luflosi</b></a><br /><a href="#fix-Luflosi" title="Fixed a theme">🛠️</a> <a href="#question-Luflosi" title="Answering Questions">💬</a> <a href="https://github.com/dexpota/kitty-themes/commits?author=Luflosi" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://holyday.me"><b>Connor Holyday</b></a><br /><a href="#fix-connorholyday" title="Fixed a theme">🛠️</a></td>
-    <td align="center"><a href="https://github.com/BlueDrink9"><b>BlueDrink9</b></a><br /><a href="https://github.com/dexpota/kitty-themes/issues?q=author%3ABlueDrink9" title="Bug reports">🐛</a></td>
+	<td align="center"><a href="http://www.scopatz.com"><b>Anthony Scopatz</b></a><br /><a href="https://github.com/dexpota/kitty-themes/commits?author=scopatz" title="Documentation">📖</a></td>
+	<td align="center"><a href="https://rckt.cc"><b>RCKT</b></a><br /><a href="#theme-orangecoloured" title="New theme added to the collection">😻</a></td>
+	<td align="center"><a href="https://github.com/varmanishant"><b>varmanishant</b></a><br /><a href="#theme-varmanishant" title="New theme added to the collection">😻</a></td>
+	<td align="center"><a href="https://github.com/rlerdorf"><b>Rasmus Lerdorf</b></a><br /><a href="https://github.com/dexpota/kitty-themes/issues?q=author%3Arlerdorf" title="Bug reports">🐛</a> <a href="#ideas-rlerdorf" title="Ideas, Planning, & Feedback">🤔</a></td>
+	<td align="center"><a href="https://github.com/Luflosi"><b>Luflosi</b></a><br /><a href="#fix-Luflosi" title="Fixed a theme">🛠️</a> <a href="#question-Luflosi" title="Answering Questions">💬</a> <a href="https://github.com/dexpota/kitty-themes/commits?author=Luflosi" title="Documentation">📖</a></td>
+	<td align="center"><a href="https://holyday.me"><b>Connor Holyday</b></a><br /><a href="#fix-connorholyday" title="Fixed a theme">🛠️</a></td>
+	<td align="center"><a href="https://github.com/BlueDrink9"><b>BlueDrink9</b></a><br /><a href="https://github.com/dexpota/kitty-themes/issues?q=author%3ABlueDrink9" title="Bug reports">🐛</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/brujoand"><b>Anders Brujordet</b></a><br /><a href="#theme-brujoand" title="New theme added to the collection">😻</a></td>
-    <td align="center"><a href="http://www.hackouts.com"><b>Rajesh Rajendran</b></a><br /><a href="#fix-rjshrjndrn" title="Fixed a theme">🛠️</a></td>
+	<td align="center"><a href="https://github.com/brujoand"><b>Anders Brujordet</b></a><br /><a href="#theme-brujoand" title="New theme added to the collection">😻</a></td>
+	<td align="center"><a href="http://www.hackouts.com"><b>Rajesh Rajendran</b></a><br /><a href="#fix-rjshrjndrn" title="Fixed a theme">🛠️</a></td>
   </tr>
 </table>
 

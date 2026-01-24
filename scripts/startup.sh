@@ -7,26 +7,26 @@
 # @stderror Output routed to startup.log
 
 # @setting-header General Settings
-# @setting CONFIG_FILE string[$CONFIGS_DIR/setup.conf] Location of setup.conf to be used by set_option and all subsequent scripts. 
+# @setting CONFIG_FILE string[$CONFIGS_DIR/setup.conf] Location of setup.conf to be used by set_option and all subsequent scripts.
 CONFIG_FILE=$CONFIGS_DIR/setup.conf
-if [ ! -f $CONFIG_FILE ]; then # check if file exists
-    touch -f $CONFIG_FILE # create file if not exists
+if [[ ! -f $CONFIG_FILE ]]; then # check if file exists
+	touch -f $CONFIG_FILE # create file if not exists
 fi
 
 # @description set options in setup.conf
 # @arg $1 string Configuration variable.
 # @arg $2 string Configuration value.
 set_option() {
-    if grep -Eq "^${1}.*" $CONFIG_FILE; then # check if option exists
-        sed -i -e "/^${1}.*/d" $CONFIG_FILE # delete option if exists
-    fi
-    echo "${1}=${2}" >>$CONFIG_FILE # add option
+	if grep -Eq "^${1}.*" $CONFIG_FILE; then # check if option exists
+		sed -i -e "/^${1}.*/d" $CONFIG_FILE # delete option if exists
+	fi
+	echo "${1}=${2}" >>$CONFIG_FILE # add option
 }
 
 set_hostname() {
 	while :; do
 		read -rep "Please enter your hostname: " nameofmachine
-		if [[ $nameofmachine =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]]; then
+		if [[ $nameofmachine =~ ^[[a-z0-9 ]]([[-a-z0-9 ]]*[[a-z0-9 ]])?$ ]]; then
 			set_option $1 $nameofmachine
 			break
 		else
@@ -52,8 +52,8 @@ set_password() {
 
 set_username() {
 	while :; do
-		read -p "Please enter your username: " username
-		if [[ $username =~ ^[a-z][-a-z0-9._]*$ && ! $username =~ [-.]$ ]]; then
+		printf "Please enter your username: "; read username
+		if [[ $username =~ ^[[a-z ]][[-a-z0-9._ ]]*$ && ! $username =~ [[-. ]]$ ]]; then
 			set_option $1 ${username,,} # convert to lower case as in issue #109
 			break
 		else
@@ -63,42 +63,42 @@ set_username() {
 }
 
 root_check() {
-    if [[ "$(id -u)" != "0" ]]; then
-        echo -ne "ERROR! This script must be run under the 'root' user!\n"
-        exit 0
-    fi
+	if [[ "$(id -u)" != "0" ]]; then
+		echo -ne "ERROR! This script must be run under the 'root' user!\n"
+		exit 0
+	fi
 }
 
 docker_check() {
-    if awk -F/ '$2 == "docker"' /proc/self/cgroup | read -r; then
-        echo -ne "ERROR! Docker container is not supported (at the moment)\n"
-        exit 0
-    elif [[ -f /.dockerenv ]]; then
-        echo -ne "ERROR! Docker container is not supported (at the moment)\n"
-        exit 0
-    fi
+	if awk -F/ '$2 == "docker"' /proc/self/cgroup | read -r; then
+		echo -ne "ERROR! Docker container is not supported (at the moment)\n"
+		exit 0
+	elif [[ -f /.dockerenv ]]; then
+		echo -ne "ERROR! Docker container is not supported (at the moment)\n"
+		exit 0
+	fi
 }
 
 arch_check() {
-    if [[ ! -e /etc/arch-release ]]; then
-        echo -ne "ERROR! This script must be run in Arch Linux!\n"
-        exit 0
-    fi
+	if [[ ! -e /etc/arch-release ]]; then
+		echo -ne "ERROR! This script must be run in Arch Linux!\n"
+		exit 0
+	fi
 }
 
 pacman_check() {
-    if [[ -f /var/lib/pacman/db.lck ]]; then
-        echo "ERROR! Pacman is blocked."
-        echo -ne "If not running remove /var/lib/pacman/db.lck.\n"
-        exit 0
-    fi
+	if [[ -f /var/lib/pacman/db.lck ]]; then
+		echo "ERROR! Pacman is blocked."
+		echo -ne "If not running remove /var/lib/pacman/db.lck.\n"
+		exit 0
+	fi
 }
 
 background_checks() {
-    root_check
-    arch_check
-    pacman_check
-    docker_check
+	root_check
+	arch_check
+	pacman_check
+	docker_check
 }
 
 # Renders a text based list of options that can be selected by the
@@ -109,106 +109,106 @@ background_checks() {
 #   Return value: selected index (0 for opt1, 1 for opt2 ...)
 select_option() {
 
-    # little helpers for terminal print control and key input
-    ESC=$( printf "\033")
-    cursor_blink_on()  { printf "$ESC[?25h"; }
-    cursor_blink_off() { printf "$ESC[?25l"; }
-    cursor_to()        { printf "$ESC[$1;${2:-1}H"; }
-    print_option()     { printf "$2   $1 "; }
-    print_selected()   { printf "$2  $ESC[7m $1 $ESC[27m"; }
-    get_cursor_row()   { IFS=';' read -sdR -p $'\E[6n' ROW COL; echo ${ROW#*[}; }
-    get_cursor_col()   { IFS=';' read -sdR -p $'\E[6n' ROW COL; echo ${COL#*[}; }
-    key_input()         {
-                        local key
-                        IFS= read -rsn1 key 2>/dev/null >&2
-                        if [[ $key = ""      ]]; then echo enter; fi;
-                        if [[ $key = $'\x20' ]]; then echo space; fi;
-                        if [[ $key = "k" ]]; then echo up; fi;
-                        if [[ $key = "j" ]]; then echo down; fi;
-                        if [[ $key = "h" ]]; then echo left; fi;
-                        if [[ $key = "l" ]]; then echo right; fi;
-                        if [[ $key = "a" ]]; then echo all; fi;
-                        if [[ $key = "n" ]]; then echo none; fi;
-                        if [[ $key = $'\x1b' ]]; then
-                            read -rsn2 key
-                            if [[ $key = [A || $key = k ]]; then echo up;    fi;
-                            if [[ $key = [B || $key = j ]]; then echo down;  fi;
-                            if [[ $key = [C || $key = l ]]; then echo right;  fi;
-                            if [[ $key = [D || $key = h ]]; then echo left;  fi;
-                        fi 
-    }
-    print_options_multicol() {
-        # print options by overwriting the last lines
-        local curr_col=$1
-        local curr_row=$2
-        local curr_idx=0
+	# little helpers for terminal print control and key input
+	ESC=$( printf "\033")
+	cursor_blink_on()  { printf "$ESC[?25h"; }
+	cursor_blink_off() { printf "$ESC[?25l"; }
+	cursor_to()        { printf "$ESC[$1;${2:-1}H"; }
+	print_option()     { printf "$2   $1 "; }
+	print_selected()   { printf "$2  $ESC[7m $1 $ESC[27m"; }
+	get_cursor_row()   { IFS=';' read -sdR -p $'\E[6n' ROW COL; echo ${ROW#*[}; }
+	get_cursor_col()   { IFS=';' read -sdR -p $'\E[6n' ROW COL; echo ${COL#*[}; }
+	key_input()         {
+						local key
+						IFS= read -rsn1 key 2>/dev/null >&2
+						if [[ $key = ""      ]]; then echo enter; fi;
+						if [[ $key = $'\x20' ]]; then echo space; fi;
+						if [[ $key = "k" ]]; then echo up; fi;
+						if [[ $key = "j" ]]; then echo down; fi;
+						if [[ $key = "h" ]]; then echo left; fi;
+						if [[ $key = "l" ]]; then echo right; fi;
+						if [[ $key = "a" ]]; then echo all; fi;
+						if [[ $key = "n" ]]; then echo none; fi;
+						if [[ $key = $'\x1b' ]]; then
+							read -rsn2 key
+							if [[ $key = [[A || $key = k ]]; then echo up;    fi;
+							if [[ $key = [[B || $key = j ]]; then echo down;  fi;
+							if [[ $key = [[C || $key = l ]]; then echo right;  fi;
+							if [[ $key = [[D || $key = h ]]; then echo left;  fi;
+						fi
+	}
+	print_options_multicol() {
+		# print options by overwriting the last lines
+		local curr_col=$1
+		local curr_row=$2
+		local curr_idx=0
 
-        local idx=0
-        local row=0
-        local col=0
-        
-        curr_idx=$(( $curr_col + $curr_row * $colmax ))
-        
-        for option in "${options[@]}"; do
+		local idx=0
+		local row=0
+		local col=0
 
-            row=$(( $idx/$colmax ))
-            col=$(( $idx - $row * $colmax ))
+		curr_idx=$(( $curr_col + $curr_row * $colmax ))
 
-            cursor_to $(( $startrow + $row + 1)) $(( $offset * $col + 1))
-            if [ $idx -eq $curr_idx ]; then
-                print_selected "$option"
-            else
-                print_option "$option"
-            fi
-            ((idx++))
-        done
-    }
+		for option in "${options[@]}"; do
 
-    # initially print empty new lines (scroll down if at bottom of screen)
-    for opt; do printf "\n"; done
+			row=$(( $idx/$colmax ))
+			col=$(( $idx - $row * $colmax ))
 
-    # determine current screen position for overwriting the options
-    local return_value=$1
-    local lastrow=`get_cursor_row`
-    local lastcol=`get_cursor_col`
-    local startrow=$(($lastrow - $#))
-    local startcol=1
-    local lines=$( tput lines )
-    local cols=$( tput cols ) 
-    local colmax=$2
-    local offset=$(( $cols / $colmax ))
+			cursor_to $(( $startrow + $row + 1)) $(( $offset * $col + 1))
+			if [[ $idx -eq $curr_idx ]]; then
+				print_selected "$option"
+			else
+				print_option "$option"
+			fi
+			((idx++))
+		done
+	}
 
-    local size=$4
-    shift 4
+	# initially print empty new lines (scroll down if at bottom of screen)
+	for opt; do printf "\n"; done
 
-    # ensure cursor and input echoing back on upon a ctrl+c during read -s
-    trap "cursor_blink_on; stty echo; printf '\n'; exit" 2
-    cursor_blink_off
+	# determine current screen position for overwriting the options
+	local return_value=$1
+	local lastrow=`get_cursor_row`
+	local lastcol=`get_cursor_col`
+	local startrow=$(($lastrow - $#))
+	local startcol=1
+	local lines=$( tput lines )
+	local cols=$( tput cols )
+	local colmax=$2
+	local offset=$(( $cols / $colmax ))
 
-    local active_row=0
-    local active_col=0
-    while true; do
-        print_options_multicol $active_col $active_row 
-        # user key control
-        case `key_input` in
-            enter)  break;;
-            up)     ((active_row--));
-                    if [ $active_row -lt 0 ]; then active_row=0; fi;;
-            down)   ((active_row++));
-                    if [ $active_row -ge $(( ${#options[@]} / $colmax ))  ]; then active_row=$(( ${#options[@]} / $colmax )); fi;;
-            left)     ((active_col=$active_col - 1));
-                    if [ $active_col -lt 0 ]; then active_col=0; fi;;
-            right)     ((active_col=$active_col + 1));
-                    if [ $active_col -ge $colmax ]; then active_col=$(( $colmax - 1 )) ; fi;;
-        esac
-    done
+	local size=$4
+	shift 4
 
-    # cursor position back to normal
-    cursor_to $lastrow
-    printf "\n"
-    cursor_blink_on
+	# ensure cursor and input echoing back on upon a ctrl+c during read -s
+	trap "cursor_blink_on; stty echo; printf '\n'; exit" 2
+	cursor_blink_off
 
-    return $(( $active_col + $active_row * $colmax ))
+	local active_row=0
+	local active_col=0
+	while :; do
+		print_options_multicol $active_col $active_row
+		# user key control
+		case `key_input` in
+			enter)  break;;
+			up)     ((active_row--));
+					if [[ $active_row -lt 0 ]]; then active_row=0; fi;;
+			down)   ((active_row++));
+					if [[ $active_row -ge $(( ${#options[[@ ]]} / $colmax ))  ]]; then active_row=$(( ${#options[[@ ]]} / $colmax )); fi;;
+			left)     ((active_col=$active_col - 1));
+					if [[ $active_col -lt 0 ]]; then active_col=0; fi;;
+			right)     ((active_col=$active_col + 1));
+					if [[ $active_col -ge $colmax ]]; then active_col=$(( $colmax - 1 )); fi;;
+		esac
+	done
+
+	# cursor position back to normal
+	cursor_to $lastrow
+	printf "\n"
+	cursor_blink_on
+
+	return $(( $active_col + $active_row * $colmax ))
 }
 # @description Displays ArchTitus logo
 # @noargs
@@ -223,7 +223,7 @@ echo -ne "
 ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
 ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 ------------------------------------------------------------------------
-            Please select presetup settings for your system              
+			Please select presetup settings for your system
 ------------------------------------------------------------------------
 "
 }
@@ -239,17 +239,17 @@ select_option $? 1 "${options[@]}"
 case $? in
 0) set_option FS btrfs;;
 1) set_option FS ext4;;
-2) 
-    set_password "LUKS_PASSWORD"
-    set_option FS luks
-    ;;
+2)
+	set_password "LUKS_PASSWORD"
+	set_option FS luks
+	;;
 3) exit ;;
 *) echo "Wrong option please select again"; filesystem;;
 esac
 }
-# @description Detects and sets timezone. 
+# @description Detects and sets timezone.
 timezone () {
-if [ "$time_zone" ]; then
+if [[ "$time_zone" ]]; then
 	set_option TIMEZONE $time_zone
 	echo "${time_zone} set as timezone"
 	return
@@ -259,16 +259,16 @@ while :; do
 	for i in $(seq 5); do
 		# Added this from arch wiki https://wiki.archlinux.org/title/System_time
 	   time_zone="$(curl -s --fail https://ipapi.co/timezone)"
-		if [ -n "$time_zone" ]; then
+		if [[ -n "$time_zone" ]]; then
 			break
 		fi
 		sleep 0.25
 		echo "Failed to grep time zone ($i/5)"
 	done
 
-	if [ -n "$time_zone" ]; then
+	if [[ -n "$time_zone" ]]; then
 		echo -ne "\nSystem detected your timezone to be '$time_zone' \n"
-		echo -ne "Is this correct?\n" 
+		echo -ne "Is this correct?\n"
 		options=("Yes" "No")
 		select_option $? 1 "${options[@]}"
 	else
@@ -284,12 +284,12 @@ while :; do
 		options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
 		select_option $? 4 "${options[@]}"
 		continent=${options[$?]}
-		if [ $continent == "retry" ]; then
+		if [[ $continent == "retry" ]]; then
 			echo "retry"
 		else
 			continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 			for item in "${continents[@]}"; do
-				if [ $continent == "$item" ]; then
+				if [[ $continent == "$item" ]]; then
 					mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um)
 					echo -e "Choose a timezone:\n\n"
 					cols=6
@@ -299,10 +299,10 @@ while :; do
 						(( num % cols == 0 )) && echo
 					done
 					echo -e "\n\n"
-					read -p "Enter number: " choice
+					printf "Enter number: "; read choice
 					city="${cities[$((choice-1))]}"
 					echo -e "\n\nYou selected: $city\n\n"
-					echo -ne "Is this correct?\n" 
+					echo -ne "Is this correct?\n"
 					options=("Yes" "No")
 					select_option $? 1 "${options[@]}"
 					correct=${options[$?]}
@@ -321,7 +321,7 @@ while :; do
 	esac
 done
 }
-# @description Set user's keyboard mapping. 
+# @description Set user's keyboard mapping.
 keymap () {
 echo -ne "
 Please select key board layout from this list"
@@ -337,22 +337,22 @@ set_option KEYMAP $keymap
 
 # @description Choose whether drive is SSD or not.
 drivessd () {
-if [ "$(cat /sys/block/$(basename $disk)/queue/rotational)" -eq 0 ]; then
-    echo "ssd"
-	set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120"
-else
-    echo "hdd"
-	set_option MOUNT_OPTIONS "noatime,compress=zstd,commit=120"
-fi
+	if [[ "$(cat /sys/block/$(basename $disk)/queue/rotational)" -eq 0 ]]; then
+		echo "ssd"
+	    set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120"
+	else
+		echo "hdd"
+	    set_option MOUNT_OPTIONS "noatime,compress=zstd,commit=120"
+	fi
 }
 
 # @description Disk selection for drive to be used with installation.
 diskpart () {
 echo -ne "
 ------------------------------------------------------------------------
-    THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
-    Please make sure you know what you are doing because
-    after formatting your disk there is no way to get data back
+	THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
+	Please make sure you know what you are doing because
+	after formatting your disk there is no way to get data back
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -368,31 +368,31 @@ select_option $? 1 "${options[@]}"
 disk=${options[$?]%|*}
 
 echo -e "\n${disk%|*} selected \n"
-    set_option DISK ${disk%|*}
+	set_option DISK ${disk%|*}
 
 drivessd
 }
 
-# @description Gather username and password to be used for installation. 
+# @description Gather username and password to be used for installation.
 userinfo () {
-#read -p "Please enter your username: " username
-#set_option USERNAME ${username,,} # convert to lower case as in issue #109 
-set_username "USERNAME"
-set_password "PASSWORD"
-#read -rep "Please enter your hostname: " nameofmachine
-#set_option NAME_OF_MACHINE $nameofmachine
-set_hostname "nameofmachine"
+	#printf "Please enter your username: "; read username
+	#set_option USERNAME ${username,,} # convert to lower case as in issue #109
+	set_username "USERNAME"
+	set_password "PASSWORD"
+	#read -rep "Please enter your hostname: " nameofmachine
+	#set_option NAME_OF_MACHINE $nameofmachine
+	set_hostname "nameofmachine"
 }
 
-# @description Choose AUR helper. 
+# @description Choose AUR helper.
 #aurhelper () {
-    #Let the user choose AUR helper from predefined list
-    #echo -ne "Please enter your desired AUR helper:\n"
-    #options=(paru yay picaur aura trizen pacaur none)
-    #select_option $? 4 "${options[@]}"
-    #aur_helper=${options[$?]}
-    #set_option AUR_HELPER $aur_helper
-}
+	#Let the user choose AUR helper from predefined list
+	#echo -ne "Please enter your desired AUR helper:\n"
+	#options=(paru yay picaur aura trizen pacaur none)
+	#select_option $? 4 "${options[@]}"
+	#aur_helper=${options[$?]}
+	#set_option AUR_HELPER $aur_helper
+#}
 
 # @description Choose Desktop Environment
 desktopenv () {
@@ -404,7 +404,7 @@ desktopenv () {
 	set_option DESKTOP_ENV $desktop_env
 }
 
-# @description Choose whether to do full or minimal installation. 
+# @description Choose whether to do full or minimal installation.
 installtype () {
 	if ! [[ "$install_type" =~ ^(FULL|MINIMAL)$ ]]; then
 		echo -ne "Please select type of installation:\n\n\ndesktop enviroment, with added apps and themes needed for everyday use\n\nMinimal Install: Installs only apps few selected apps to get you started\n"
@@ -416,7 +416,7 @@ installtype () {
 }
 
 # More features in future
-# language (){}
+# language () {}
 
 # Starting functions
 background_checks
@@ -430,12 +430,12 @@ desktopenv
 set_option INSTALL_TYPE MINIMAL
 set_option AUR_HELPER NONE
 if [[ ! $desktop_env == server ]]; then
-    #clear
-    #logo
-    #aurhelper
-    clear
-    logo
-    installtype
+	#clear
+	#logo
+	#aurhelper
+	clear
+	logo
+	installtype
 fi
 clear
 logo

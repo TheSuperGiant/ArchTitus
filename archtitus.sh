@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #github-action genshdoc
 #
 # @file ArchTitus
@@ -19,19 +19,19 @@ echo -ne "
   ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 -------------------------------------------------------------------------
-                    Automated Arch Linux Installer
+					Automated Arch Linux Installer
 -------------------------------------------------------------------------
-                Scripts are in directory named ArchTitus
+				Scripts are in directory named ArchTitus
 "
-    ( bash $SCRIPT_DIR/scripts/startup.sh )|& tee startup.log
-      source $CONFIGS_DIR/setup.conf
-    ( bash $SCRIPT_DIR/scripts/0-preinstall.sh )|& tee 0-preinstall.log
-    ( arch-chroot /mnt $HOME/ArchTitus/scripts/1-setup.sh )|& tee 1-setup.log
-    if [[ ! $DESKTOP_ENV == server ]]; then
-      ( arch-chroot /mnt /usr/bin/runuser -u $USERNAME -- /home/$USERNAME/ArchTitus/scripts/2-user.sh )|& tee 2-user.log
-    fi
-    ( arch-chroot /mnt $HOME/ArchTitus/scripts/3-post-setup.sh )|& tee 3-post-setup.log
-    cp -v *.log /mnt/home/$USERNAME
+	( bash $SCRIPT_DIR/scripts/startup.sh )|& tee startup.log
+	  source $CONFIGS_DIR/setup.conf
+	( bash $SCRIPT_DIR/scripts/0-preinstall.sh )|& tee 0-preinstall.log
+	( arch-chroot /mnt $HOME/ArchTitus/scripts/1-setup.sh )|& tee 1-setup.log
+	if [[ ! $DESKTOP_ENV == server ]]; then
+	  ( arch-chroot /mnt /usr/bin/runuser -u $USERNAME -- /home/$USERNAME/ArchTitus/scripts/2-user.sh )|& tee 2-user.log
+	fi
+	( arch-chroot /mnt $HOME/ArchTitus/scripts/3-post-setup.sh )|& tee 3-post-setup.log
+	cp -v *.log /mnt/home/$USERNAME
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -42,7 +42,7 @@ echo -ne "
   ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 -------------------------------------------------------------------------
-                    Automated Arch Linux Installer
+					Automated Arch Linux Installer
 -------------------------------------------------------------------------
-                Done - Please Eject Install Media and Reboot
+				Done - Please Eject Install Media and Reboot
 "
