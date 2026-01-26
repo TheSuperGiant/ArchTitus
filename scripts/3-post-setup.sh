@@ -12,8 +12,8 @@ echo -ne "
   ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 -------------------------------------------------------------------------
-					Automated Arch Linux Installer
-						SCRIPTHOME: ArchTitus
+                    Automated Arch Linux Installer
+                        SCRIPTHOME: ArchTitus
 -------------------------------------------------------------------------
 
 Final Setup and Configurations
@@ -27,7 +27,7 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
-			   Creating (and Theming) Grub Boot Menu
+            Creating (and Theming) Grub Boot Menu
 -------------------------------------------------------------------------
 "
 # set kernel parameter for decrypting the drive
@@ -56,7 +56,7 @@ echo -e "All set!"
 
 echo -ne "
 -------------------------------------------------------------------------
-			   Enabling (and Theming) Login Display Manager
+            Enabling (and Theming) Login Display Manager
 -------------------------------------------------------------------------
 "
 if [[ ${DESKTOP_ENV} == "kde" ]]; then
@@ -76,7 +76,7 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
-					Enabling Essential Services
+                    Enabling Essential Services
 -------------------------------------------------------------------------
 "
 systemctl enable cups.service
@@ -98,7 +98,7 @@ echo "  Avahi enabled"
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
 echo -ne "
 -------------------------------------------------------------------------
-					Creating Snapper Config
+                    Enabling Essential Services
 -------------------------------------------------------------------------
 "
 
@@ -114,7 +114,7 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
-			   Enabling (and Theming) Plymouth Boot Splash
+            Enabling (and Theming) Plymouth Boot Splash
 -------------------------------------------------------------------------
 "
 PLYMOUTH_THEMES_DIR="$HOME/ArchTitus/configs/usr/share/plymouth/themes"
@@ -133,7 +133,7 @@ echo 'Plymouth theme installed'
 
 echo -ne "
 -------------------------------------------------------------------------
-					Cleaning
+                    Cleaning
 -------------------------------------------------------------------------
 "
 # Remove no password sudo rights

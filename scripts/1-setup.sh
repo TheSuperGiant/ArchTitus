@@ -12,21 +12,21 @@ echo -ne "
   ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 -------------------------------------------------------------------------
-					Automated Arch Linux Installer
-						SCRIPTHOME: ArchTitus
+                    Automated Arch Linux Installer
+                        SCRIPTHOME: ArchTitus
 -------------------------------------------------------------------------
 "
 source $HOME/ArchTitus/configs/setup.conf
 echo -ne "
 -------------------------------------------------------------------------
-					Network Setup
+                    Network Setup 
 -------------------------------------------------------------------------
 "
 pacman -S --noconfirm --needed networkmanager dhclient
 systemctl enable --now NetworkManager
 echo -ne "
 -------------------------------------------------------------------------
-					Setting up mirrors for optimal download
+                    Setting up mirrors for optimal download 
 -------------------------------------------------------------------------
 "
 pacman -S --noconfirm --needed pacman-contrib curl
@@ -36,9 +36,9 @@ cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 nc=$(grep -c ^processor /proc/cpuinfo)
 echo -ne "
 -------------------------------------------------------------------------
-					You have " $nc" cores. And
-			changing the makeflags for "$nc" cores. Aswell as
-				changing the compression settings.
+                    You have " $nc" cores. And
+            changing the makeflags for "$nc" cores. Aswell as
+                changing the compression settings.
 -------------------------------------------------------------------------
 "
 TOTAL_MEM=$(cat /proc/meminfo | grep -i 'memtotal' | grep -o '[[:digit:]]*')
@@ -48,7 +48,7 @@ if [[  $TOTAL_MEM -gt 8000000 ]]; then
 fi
 echo -ne "
 -------------------------------------------------------------------------
-					Setup Language to US and set locale
+                    Setup Language to US and set locale  
 -------------------------------------------------------------------------
 "
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
@@ -73,7 +73,7 @@ pacman -Sy --noconfirm --needed
 
 echo -ne "
 -------------------------------------------------------------------------
-					Installing Base System
+                    Installing Base System  
 -------------------------------------------------------------------------
 "
 # sed $INSTALL_TYPE is using install type to check for MINIMAL installation, if it's true, stop
@@ -91,7 +91,7 @@ if [[ ! $DESKTOP_ENV == server ]]; then
 fi
 echo -ne "
 -------------------------------------------------------------------------
-					Installing Microcode
+                    Installing Microcode
 -------------------------------------------------------------------------
 "
 # determine processor type and install microcode
@@ -108,7 +108,7 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
-					Installing Graphics Drivers
+                    Installing Graphics Drivers
 -------------------------------------------------------------------------
 "
 # Graphics Drivers find and install
@@ -130,7 +130,8 @@ if ! source $HOME/ArchTitus/configs/setup.conf; then
 		printf "Please enter username:"; read username
 		# username regex per response here https://unix.stackexchange.com/questions/157426/what-is-the-regex-to-validate-linux-users
 		# lowercase the username to test regex
-		if [[ "${username,,}" =~ ^[[a-z_ ]]([[a-z0-9_- ]]{0,31}|[[a-z0-9_- ]]{0,30}\$)$ ]]; then
+		if [[ "${username,,}" =~ ^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$ ]]
+		then 
 			break
 		fi
 		echo "Incorrect username."
@@ -145,7 +146,8 @@ if ! source $HOME/ArchTitus/configs/setup.conf; then
 	while :; do
 		printf "Please name your machine:"; read name_of_machine
 		# hostname regex (!!couldn't find spec for computer name!!)
-		if [[ "${name_of_machine,,}" =~ ^[[a-z ]][[a-z0-9_.- ]]{0,62}[[a-z0-9 ]]$ ]]; then
+		if [[ "${name_of_machine,,}" =~ ^[a-z][a-z0-9_.-]{0,62}[a-z0-9]$ ]]
+		then 
 			break
 		fi
 		# if validation fails allow the user to force saving of the hostname
@@ -159,7 +161,7 @@ if ! source $HOME/ArchTitus/configs/setup.conf; then
 fi
 echo -ne "
 -------------------------------------------------------------------------
-					Adding User
+                    Adding User
 -------------------------------------------------------------------------
 "
 if [[ $(whoami) = "root"  ]]; then
@@ -189,6 +191,6 @@ if [[ ${FS} == "luks" ]]; then
 fi
 echo -ne "
 -------------------------------------------------------------------------
-					SYSTEM READY FOR 2-user.sh
+                    SYSTEM READY FOR 2-user.sh
 -------------------------------------------------------------------------
 "

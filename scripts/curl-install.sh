@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Checking if is running in Repo Folder
-if [[ "$(basename "$(pwd)" | tr '[[:upper: ]]' '[[:lower: ]]')" =~ ^scripts$ ]]; then
+if [[ "$(basename "$(pwd)" | tr '[:upper:]' '[:lower:]')" =~ ^scripts$ ]]; then
 	echo "You are running this in ArchTitus Folder."
 	echo "Please use ./archtitus.sh instead"
 	exit

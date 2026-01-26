@@ -20,7 +20,7 @@ echo -ne "
   ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 -------------------------------------------------------------------------
-					Automated Arch Linux Installer
+                    Automated Arch Linux Installer
 -------------------------------------------------------------------------
 
 Setting up mirrors for optimal download
@@ -36,20 +36,20 @@ pacman -S --noconfirm --needed reflector rsync grub
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 echo -ne "
 -------------------------------------------------------------------------
-					Setting up $iso mirrors for faster downloads
+                    Setting up $iso mirrors for faster downloads
 -------------------------------------------------------------------------
 "
 reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
 mkdir /mnt &>/dev/null # Hiding error message if any
 echo -ne "
 -------------------------------------------------------------------------
-					Installing Prerequisites
+                    Installing Prerequisites
 -------------------------------------------------------------------------
 "
 pacman -S --noconfirm --needed gptfdisk btrfs-progs glibc
 echo -ne "
 -------------------------------------------------------------------------
-					Formating Disk
+                    Formating Disk
 -------------------------------------------------------------------------
 "
 umount -A --recursive /mnt # make sure everything is unmounted before we start
@@ -69,7 +69,7 @@ partprobe ${DISK} # reread partition table to ensure it is correct
 # make filesystems
 echo -ne "
 -------------------------------------------------------------------------
-					Creating Filesystems
+                    Creating Filesystems
 -------------------------------------------------------------------------
 "
 # @description Creates the btrfs subvolumes.
@@ -148,7 +148,7 @@ if ! grep -qs '/mnt' /proc/mounts; then
 fi
 echo -ne "
 -------------------------------------------------------------------------
-					Arch Install on Main Drive
+                    Arch Install on Main Drive
 -------------------------------------------------------------------------
 "
 pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget libnewt --noconfirm --needed
@@ -163,7 +163,7 @@ echo "
 cat /mnt/etc/fstab
 echo -ne "
 -------------------------------------------------------------------------
-					GRUB BIOS Bootloader Install & Check
+                    GRUB BIOS Bootloader Install & Check
 -------------------------------------------------------------------------
 "
 if [[ ! -d "/sys/firmware/efi" ]]; then
@@ -173,7 +173,7 @@ else
 fi
 echo -ne "
 -------------------------------------------------------------------------
-					Checking for low memory systems <8G
+                    Checking for low memory systems <8G
 -------------------------------------------------------------------------
 "
 TOTAL_MEM=$(cat /proc/meminfo | grep -i 'memtotal' | grep -o '[[:digit:]]*')
@@ -191,6 +191,6 @@ if [[  $TOTAL_MEM -lt 8000000 ]]; then
 fi
 echo -ne "
 -------------------------------------------------------------------------
-					SYSTEM READY FOR 1-setup.sh
+                    SYSTEM READY FOR 1-setup.sh
 -------------------------------------------------------------------------
 "
