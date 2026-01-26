@@ -98,7 +98,7 @@ echo "  Avahi enabled"
 if [[ "${FS}" == "luks" || "${FS}" == "btrfs" ]]; then
 echo -ne "
 -------------------------------------------------------------------------
-                    Enabling Essential Services
+                    Creating Snapper Config
 -------------------------------------------------------------------------
 "
 

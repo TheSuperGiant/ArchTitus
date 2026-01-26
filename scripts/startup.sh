@@ -53,7 +53,7 @@ set_password() {
 set_username() {
 	while :; do
 		printf "Please enter your username: "; read username
-			if [[ $username =~ ^[a-z][-a-z0-9._]*$ && ! $username =~ [-.]$ ]]; then
+		if [[ $username =~ ^[a-z][-a-z0-9._]*$ && ! $username =~ [-.]$ ]]; then
 			set_option $1 ${username,,} # convert to lower case as in issue #109
 			break
 		else
@@ -195,7 +195,7 @@ select_option() {
 			up)     ((active_row--));
 					if [[ $active_row -lt 0 ]]; then active_row=0; fi;;
 			down)   ((active_row++));
-                    if [ $active_row -ge $(( ${#options[@]} / $colmax ))  ]; then active_row=$(( ${#options[@]} / $colmax )); fi;;
+					if [[ $active_row -ge $(( ${#options[@]} / $colmax ))  ]]; then active_row=$(( ${#options[@]} / $colmax )); fi;;
 			left)     ((active_col=$active_col - 1));
 					if [[ $active_col -lt 0 ]]; then active_col=0; fi;;
 			right)     ((active_col=$active_col + 1));
@@ -224,7 +224,7 @@ echo -ne "
 ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
 ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 ------------------------------------------------------------------------
-            Please select presetup settings for your system              
+            Please select presetup settings for your system
 ------------------------------------------------------------------------
 "
 }
