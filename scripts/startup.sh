@@ -130,7 +130,8 @@ select_option() {
                         if [[ $key = "a" ]]; then echo all; fi;
                         if [[ $key = "n" ]]; then echo none; fi;
                         if [[ $key = $'\x1b' ]]; then
-                            read -rsn2 key
+                            #read -rsn2 key
+                            read -rsn1 key
                             if [[ $key = A || $key = k ]]; then echo up;    fi;
                             if [[ $key = B || $key = j ]]; then echo down;  fi;
                             if [[ $key = C || $key = l ]]; then echo right;  fi;
