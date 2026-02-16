@@ -131,10 +131,10 @@ select_option() {
                         if [[ $key = "n" ]]; then echo none; fi;
                         if [[ $key = $'\x1b' ]]; then
                             read -rsn2 key
-                            if [[ $key = [A || $key = k ]]; then echo up;    fi;
-                            if [[ $key = [B || $key = j ]]; then echo down;  fi;
-                            if [[ $key = [C || $key = l ]]; then echo right;  fi;
-                            if [[ $key = [D || $key = h ]]; then echo left;  fi;
+                            if [[ $key = A || $key = k ]]; then echo up;    fi;
+                            if [[ $key = B || $key = j ]]; then echo down;  fi;
+                            if [[ $key = C || $key = l ]]; then echo right;  fi;
+                            if [[ $key = D || $key = h ]]; then echo left;  fi;
                         fi 
     }
     print_options_multicol() {
