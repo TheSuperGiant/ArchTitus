@@ -162,7 +162,7 @@ echo -ne "
                     Adding User
 -------------------------------------------------------------------------
 "
-if [[ $(whoami) = "root"  ]]; then
+if [[ $(whoami) = "root" ]]; then
 	groupadd libvirt
 	useradd -m -G wheel,libvirt -s /bin/bash $USERNAME
 	echo "$USERNAME created, home directory created, added to wheel and libvirt group, default shell set to /bin/bash"
