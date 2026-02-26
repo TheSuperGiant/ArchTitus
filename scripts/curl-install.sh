@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Checking if is running in Repo Folder
 if [[ "$(basename "$(pwd)" | tr '[:upper:]' '[:lower:]')" =~ ^scripts$ ]]; then
-	echo "You are running this in ArchTitus Folder."
-	echo "Please use ./archtitus.sh instead"
-	exit
+    echo "You are running this in ArchTitus Folder."
+    echo "Please use ./archtitus.sh instead"
+    exit
 fi
 
 # Installing git

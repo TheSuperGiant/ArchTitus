@@ -22,12 +22,12 @@ GRUB EFI Bootloader Install & Check
 source ${HOME}/ArchTitus/configs/setup.conf
 
 if [[ -d "/sys/firmware/efi" ]]; then
-	grub-install --efi-directory=/boot ${DISK}
+    grub-install --efi-directory=/boot ${DISK}
 fi
 
 echo -ne "
 -------------------------------------------------------------------------
-            Creating (and Theming) Grub Boot Menu
+               Creating (and Theming) Grub Boot Menu
 -------------------------------------------------------------------------
 "
 # set kernel parameter for decrypting the drive
@@ -56,22 +56,22 @@ echo -e "All set!"
 
 echo -ne "
 -------------------------------------------------------------------------
-            Enabling (and Theming) Login Display Manager
+               Enabling (and Theming) Login Display Manager
 -------------------------------------------------------------------------
 "
 if [[ ${DESKTOP_ENV} == "kde" ]]; then
-	systemctl enable sddm.service
-	if [[ ${INSTALL_TYPE} == "FULL" ]]; then
-		echo [Theme] >>  /etc/sddm.conf
-		echo Current=Nordic >> /etc/sddm.conf
-	fi
+    systemctl enable sddm.service
+    if [[ ${INSTALL_TYPE} == "FULL" ]]; then
+        echo [Theme] >>  /etc/sddm.conf
+        echo Current=Nordic >> /etc/sddm.conf
+    fi
 elif [[ "${DESKTOP_ENV}" == "gnome" ]]; then
-	systemctl enable gdm.service
+    systemctl enable gdm.service
 else
-	if [[ ! "${DESKTOP_ENV}" == "server"  ]]; then
-		sudo pacman -S --noconfirm --needed lightdm lightdm-gtk-greeter
-		systemctl enable lightdm.service
-	fi
+    if [[ ! "${DESKTOP_ENV}" == "server"  ]]; then
+        sudo pacman -S --noconfirm --needed lightdm lightdm-gtk-greeter
+        systemctl enable lightdm.service
+    fi
 fi
 
 echo -ne "
@@ -114,7 +114,7 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
-            Enabling (and Theming) Plymouth Boot Splash
+               Enabling (and Theming) Plymouth Boot Splash
 -------------------------------------------------------------------------
 "
 PLYMOUTH_THEMES_DIR="$HOME/ArchTitus/configs/usr/share/plymouth/themes"
@@ -123,10 +123,10 @@ mkdir -p /usr/share/plymouth/themes
 echo 'Installing Plymouth theme...'
 cp -rf ${PLYMOUTH_THEMES_DIR}/${PLYMOUTH_THEME} /usr/share/plymouth/themes
 if [[ $FS == "luks" ]]; then
-	sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
-	sed -i 's/HOOKS=(base udev \(.*block\) /&plymouth-/' /etc/mkinitcpio.conf # create plymouth-encrypt after block hook
+    sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
+    sed -i 's/HOOKS=(base udev \(.*block\) /&plymouth-/' /etc/mkinitcpio.conf # create plymouth-encrypt after block hook
 else
-	sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
+    sed -i 's/HOOKS=(base udev*/& plymouth/' /etc/mkinitcpio.conf # add plymouth after base udev
 fi
 plymouth-set-default-theme -R arch-glow # sets the theme and runs mkinitcpio
 echo 'Plymouth theme installed'

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 export PATH=$PATH:~/.local/bin
 cp -r $HOME/$SCRIPTHOME/configs/.config/* $HOME/.config/

@@ -1,4 +1,4 @@
-awesome
+awesome 
 lightdm
 lightdm-gtk-greeter
 thunar
@@ -41,3 +41,4 @@ imagemagick
 playerctl
 xsettingsd
 obconf
+
