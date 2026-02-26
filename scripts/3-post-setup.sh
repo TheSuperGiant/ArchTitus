@@ -22,7 +22,7 @@ GRUB EFI Bootloader Install & Check
 source ${HOME}/ArchTitus/configs/setup.conf
 
 if [[ -d "/sys/firmware/efi" ]]; then
-    grub-install --efi-directory=/boot ${DISK}
+	grub-install --efi-directory=/boot ${DISK}
 fi
 
 echo -ne "
@@ -62,8 +62,8 @@ echo -ne "
 if [[ ${DESKTOP_ENV} == "kde" ]]; then
   systemctl enable sddm.service
   if [[ ${INSTALL_TYPE} == "FULL" ]]; then
-    echo [Theme] >>  /etc/sddm.conf
-    echo Current=Nordic >> /etc/sddm.conf
+	echo [Theme] >>  /etc/sddm.conf
+	echo Current=Nordic >> /etc/sddm.conf
   fi
 
 elif [[ "${DESKTOP_ENV}" == "gnome" ]]; then
