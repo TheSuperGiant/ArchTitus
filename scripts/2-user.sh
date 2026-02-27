@@ -31,8 +31,8 @@ sed -n '/'$INSTALL_TYPE'/q;p' ~/ArchTitus/pkg-files/${DESKTOP_ENV}.txt | while r
 do
   if [[ ${line} == '--END OF MINIMAL INSTALL--' ]]
   then
-	# If selected installation type is FULL, skip the --END OF THE MINIMAL INSTALLATION-- line
-	continue
+    # If selected installation type is FULL, skip the --END OF THE MINIMAL INSTALLATION-- line
+    continue
   fi
   echo "INSTALLING: ${line}"
   sudo pacman -S --noconfirm --needed ${line}
@@ -49,7 +49,7 @@ done
  # sed -n '/'$INSTALL_TYPE'/q;p' ~/ArchTitus/pkg-files/aur-pkgs.txt | while read line
  # do
    # if [[ ${line} == '--END OF MINIMAL INSTALL--' ]]; then
-	  # If selected installation type is FULL, skip the --END OF THE MINIMAL INSTALLATION-- line
+      # If selected installation type is FULL, skip the --END OF THE MINIMAL INSTALLATION-- line
    ##   continue
   #  fi
    # echo "INSTALLING: ${line}"
@@ -62,11 +62,11 @@ export PATH=$PATH:~/.local/bin
 # Theming DE if user chose FULL installation
 if [[ $INSTALL_TYPE == "FULL" ]]; then
   if [[ $DESKTOP_ENV == "kde" ]]; then
-	cp -r ~/ArchTitus/configs/.config/* ~/.config/
-	pip install konsave
-	konsave -i ~/ArchTitus/configs/kde.knsv
-	sleep 1
-	konsave -a kde
+    cp -r ~/ArchTitus/configs/.config/* ~/.config/
+    pip install konsave
+    konsave -i ~/ArchTitus/configs/kde.knsv
+    sleep 1
+    konsave -a kde
  fi
 fi
 
