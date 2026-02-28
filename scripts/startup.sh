@@ -356,13 +356,13 @@ echo -ne "
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
-$(lsblk -o NAME,TYPE,SIZE,LABEL,MODEL | awk 'NR==1{print;next} $2=="disk" && NR>1{print "--------------------------------------------------"} $2=="disk" || $2=="part"{print}')
+$(lsblk -o NAME,TYPE,SIZE,LABEL,MODEL | grep -v fd | awk 'NR==1{print;next} $2=="disk" && NR>1{print "--------------------------------------------------"} $2=="disk" || $2=="part"{print}')
 ------------------------------------------------------------------------
 "
 
 PS3='
 Select the disk to install on: '
-options=($(lsblk -n --output TYPE,KNAME,SIZE | awk '$1=="disk"{print "/dev/"$2}'))
+options=($(lsblk -n --output TYPE,KNAME,SIZE | grep -v fd | awk '$1=="disk"{print "/dev/"$2}'))
 
 select_option $? 1 "${options[@]}"
 disk=${options[$?]%|*}
