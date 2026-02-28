@@ -26,8 +26,8 @@ set_option() {
 set_hostname() {
 	while :; do
 		read -rep "Please enter your hostname: " nameofmachine
-		if [[ $nameofmachine =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]]; then
-			set_option $1 $nameofmachine
+		if [[ "$nameofmachine" =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]]; then
+			set_option "$1" "$nameofmachine"
 			break
 		else
 			echo "ERROR! Use only: a–z, 0–9, -  (no start/end with -)"
@@ -381,7 +381,8 @@ set_username "USERNAME"
 set_password "PASSWORD"
 #read -rep "Please enter your hostname: " nameofmachine
 #set_option NAME_OF_MACHINE $nameofmachine
-set_hostname "nameofmachine"
+#set_hostname "nameofmachine"
+set_hostname "NAME_OF_MACHINE"
 }
 
 # @description Choose AUR helper. 
