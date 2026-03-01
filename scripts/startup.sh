@@ -9,7 +9,7 @@
 # @setting-header General Settings
 # @setting CONFIG_FILE string[$CONFIGS_DIR/setup.conf] Location of setup.conf to be used by set_option and all subsequent scripts.
 CONFIG_FILE=$CONFIGS_DIR/setup.conf
-if [ ! -f $CONFIG_FILE ]; then # check if file exists
+if [[ ! -f $CONFIG_FILE ]]; then # check if file exists
 	touch -f $CONFIG_FILE # create file if not exists
 fi
 
@@ -52,7 +52,7 @@ set_password() {
 
 set_username() {
 	while :; do
-		read -p "Please enter your username: " username; username=${username,,}
+		printf "Please enter your username: "; read username; username=${username,,}
 		if [[ $username =~ ^[a-z][-a-z0-9._]*$ && ! $username =~ [-.]$ ]]; then
 			set_option $1 $username
 			break
@@ -131,10 +131,10 @@ select_option() {
 						if [[ $key = "n" ]]; then echo none; fi;
 						if [[ $key = $'\x1b' ]]; then
 							read -rsn2 key
-							if [[ $key = [A || $key = k ]]; then echo up;    fi;
-							if [[ $key = [B || $key = j ]]; then echo down;  fi;
-							if [[ $key = [C || $key = l ]]; then echo right;  fi;
-							if [[ $key = [D || $key = h ]]; then echo left;  fi;
+							if [[ $key = [[A || $key = k ]]; then echo up;    fi;
+							if [[ $key = [[B || $key = j ]]; then echo down;  fi;
+							if [[ $key = [[C || $key = l ]]; then echo right;  fi;
+							if [[ $key = [[D || $key = h ]]; then echo left;  fi;
 						fi
 	}
 	print_options_multicol() {
@@ -155,7 +155,7 @@ select_option() {
 			col=$(( $idx - $row * $colmax ))
 
 			cursor_to $(( $startrow + $row + 1)) $(( $offset * $col + 1))
-			if [ $idx -eq $curr_idx ]; then
+			if [[ $idx -eq $curr_idx ]]; then
 				print_selected "$option"
 			else
 				print_option "$option"
@@ -187,19 +187,19 @@ select_option() {
 
 	local active_row=0
 	local active_col=0
-	while true; do
+	while :; do
 		print_options_multicol $active_col $active_row
 		# user key control
 		case `key_input` in
 			enter)  break;;
 			up)     ((active_row--));
-					if [ $active_row -lt 0 ]; then active_row=0; fi;;
+					if [[ $active_row -lt 0 ]]; then active_row=0; fi;;
 			down)   ((active_row++));
-					if [ $active_row -ge $(( ${#options[@]} / $colmax ))  ]; then active_row=$(( ${#options[@]} / $colmax )); fi;;
+					if [[ $active_row -ge $(( ${#options[@]} / $colmax ))  ]]; then active_row=$(( ${#options[@]} / $colmax )); fi;;
 			left)     ((active_col=$active_col - 1));
-					if [ $active_col -lt 0 ]; then active_col=0; fi;;
+					if [[ $active_col -lt 0 ]]; then active_col=0; fi;;
 			right)     ((active_col=$active_col + 1));
-					if [ $active_col -ge $colmax ]; then active_col=$(( $colmax - 1 )) ; fi;;
+					if [[ $active_col -ge $colmax ]]; then active_col=$(( $colmax - 1 )); fi;;
 		esac
 	done
 
@@ -249,7 +249,7 @@ esac
 }
 # @description Detects and sets timezone.
 timezone () {
-if [ "$time_zone" ]; then
+if [[ "$time_zone" ]]; then
 	set_option TIMEZONE $time_zone
 	echo "${time_zone} set as timezone"
 	return
@@ -259,14 +259,14 @@ while :; do
 	for i in $(seq 5); do
 		# Added this from arch wiki https://wiki.archlinux.org/title/System_time
 	   time_zone="$(curl -s --fail https://ipapi.co/timezone)"
-		if [ -n "$time_zone" ]; then
+		if [[ -n "$time_zone" ]]; then
 			break
 		fi
 		sleep 0.25
 		echo "Failed to grep time zone ($i/5)"
 	done
 
-	if [ -n "$time_zone" ]; then
+	if [[ -n "$time_zone" ]]; then
 		echo -ne "\nSystem detected your timezone to be '$time_zone' \n"
 		echo -ne "Is this correct?\n"
 		options=("Yes" "No")
@@ -284,12 +284,12 @@ while :; do
 		options=(retry Africa America Antarctica Arctic Asia Atlantic Australia Europe Indian Pacific)
 		select_option $? 4 "${options[@]}"
 		continent=${options[$?]}
-		if [ $continent == "retry" ]; then
+		if [[ $continent == "retry" ]]; then
 			echo "retry"
 		else
 			continents=("Africa" "America" "Antarctica" "Arctic" "Asia" "Atlantic" "Australia" "Europe" "Indian" "Pacific")
 			for item in "${continents[@]}"; do
-				if [ $continent == "$item" ]; then
+				if [[ $continent == "$item" ]]; then
 					mapfile -t cities < <(timedatectl list-timezones | grep "^$continent/" | awk -F/ '{print $NF}' | sort -um)
 					echo -e "Choose a timezone:\n\n"
 					cols=6
@@ -299,7 +299,7 @@ while :; do
 						(( num % cols == 0 )) && echo
 					done
 					echo -e "\n\n"
-					read -p "Enter number: " choice
+					printf "Enter number: "; read choice
 					city="${cities[$((choice-1))]}"
 					echo -e "\n\nYou selected: $city\n\n"
 					echo -ne "Is this correct?\n"
@@ -337,7 +337,7 @@ set_option KEYMAP $keymap
 
 # @description Choose whether drive is SSD or not.
 drivessd () {
-if [ "$(cat /sys/block/$(basename $disk)/queue/rotational)" -eq 0 ]; then
+if [[ "$(cat /sys/block/$(basename $disk)/queue/rotational)" -eq 0 ]]; then
 	echo "ssd"
 	set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120"
 else
@@ -412,7 +412,7 @@ installtype () {
 }
 
 # More features in future
-# language (){}
+# language () {}
 
 # Starting functions
 background_checks

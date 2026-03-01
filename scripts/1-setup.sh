@@ -126,8 +126,8 @@ fi
 #SETUP IS WRONG THIS IS RUN
 if ! source $HOME/ArchTitus/configs/setup.conf; then
 	# Loop through user input until the user gives a valid username
-	while true; do
-		read -p "Please enter username:" username
+	while :; do
+		printf "Please enter username:"; read username
 		# username regex per response here https://unix.stackexchange.com/questions/157426/what-is-the-regex-to-validate-linux-users
 		# lowercase the username to test regex
 		if [[ "${username,,}" =~ ^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$ ]]; then
@@ -139,18 +139,18 @@ if ! source $HOME/ArchTitus/configs/setup.conf; then
 echo "username=${username,,}" >> ${HOME}/ArchTitus/configs/setup.conf
 
 	#Set Password
-	read -p "Please enter password:" password
+	printf "Please enter password:"; read password
 echo "password=${password,,}" >> ${HOME}/ArchTitus/configs/setup.conf
 
 	# Loop through user input until the user gives a valid hostname, but allow the user to force save
-	while true; do
-		read -p "Please name your machine:" name_of_machine
+	while :; do
+		printf "Please name your machine:"; read name_of_machine
 		# hostname regex (!!couldn't find spec for computer name!!)
 		if [[ "${name_of_machine,,}" =~ ^[a-z][a-z0-9_.-]{0,62}[a-z0-9]$ ]]; then
 			break
 		fi
 		# if validation fails allow the user to force saving of the hostname
-		read -p "Hostname doesn't seem correct. Do you still want to save it? (y/n)" force
+		printf "Hostname doesn't seem correct. Do you still want to save it? (y/n)"; read force
 		if [[ "${force,,}" = "y" ]]; then
 			break
 		fi
@@ -163,7 +163,7 @@ echo -ne "
                     Adding User
 -------------------------------------------------------------------------
 "
-if [ $(whoami) = "root"  ]; then
+if [[ $(whoami) = "root" ]]; then
 	groupadd libvirt
 	useradd -m -G wheel,libvirt -s /bin/bash $USERNAME
 	echo "$USERNAME created, home directory created, added to wheel and libvirt group, default shell set to /bin/bash"
