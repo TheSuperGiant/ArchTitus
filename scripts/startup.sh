@@ -52,9 +52,11 @@ set_password() {
 
 set_username() {
 	while :; do
-		read -p "Please enter your username: " username
+		read -p "Please enter your username: " username; username=${username,,} # convert to lower case as in issue #109
+		echo $username
 		if [[ $username =~ ^[a-z][-a-z0-9._]*$ && ! $username =~ [-.]$ ]]; then
-			set_option $1 ${username,,} # convert to lower case as in issue #109
+			#set_option $1 ${username,,} # convert to lower case as in issue #109
+			set_option $1 $username
 			break
 		else
 			echo "ERROR! Use only: a–z, 0–9, -, _, .  (not starting with digit, - or .)"
