@@ -25,7 +25,7 @@ set_option() {
 
 set_hostname() {
 	while :; do
-		read -rep "Please enter your hostname: " nameofmachine
+		read -rep "Please enter your hostname: " nameofmachine; nameofmachine=${nameofmachine,,}
 		if [[ "$nameofmachine" =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$ ]]; then
 			set_option "$1" "$nameofmachine"
 			break
@@ -53,9 +53,7 @@ set_password() {
 set_username() {
 	while :; do
 		read -p "Please enter your username: " username; username=${username,,} # convert to lower case as in issue #109
-		echo $username
 		if [[ $username =~ ^[a-z][-a-z0-9._]*$ && ! $username =~ [-.]$ ]]; then
-			#set_option $1 ${username,,} # convert to lower case as in issue #109
 			set_option $1 $username
 			break
 		else
