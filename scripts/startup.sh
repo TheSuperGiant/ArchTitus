@@ -7,7 +7,7 @@
 # @stderror Output routed to startup.log
 
 # @setting-header General Settings
-# @setting CONFIG_FILE string[$CONFIGS_DIR/setup.conf] Location of setup.conf to be used by set_option and all subsequent scripts. 
+# @setting CONFIG_FILE string[$CONFIGS_DIR/setup.conf] Location of setup.conf to be used by set_option and all subsequent scripts.
 CONFIG_FILE=$CONFIGS_DIR/setup.conf
 if [ ! -f $CONFIG_FILE ]; then # check if file exists
 	touch -f $CONFIG_FILE # create file if not exists
@@ -135,7 +135,7 @@ select_option() {
 							if [[ $key = [B || $key = j ]]; then echo down;  fi;
 							if [[ $key = [C || $key = l ]]; then echo right;  fi;
 							if [[ $key = [D || $key = h ]]; then echo left;  fi;
-						fi 
+						fi
 	}
 	print_options_multicol() {
 		# print options by overwriting the last lines
@@ -146,9 +146,9 @@ select_option() {
 		local idx=0
 		local row=0
 		local col=0
-		
+
 		curr_idx=$(( $curr_col + $curr_row * $colmax ))
-		
+
 		for option in "${options[@]}"; do
 
 			row=$(( $idx/$colmax ))
@@ -174,7 +174,7 @@ select_option() {
 	local startrow=$(($lastrow - $#))
 	local startcol=1
 	local lines=$( tput lines )
-	local cols=$( tput cols ) 
+	local cols=$( tput cols )
 	local colmax=$2
 	local offset=$(( $cols / $colmax ))
 
@@ -188,7 +188,7 @@ select_option() {
 	local active_row=0
 	local active_col=0
 	while true; do
-		print_options_multicol $active_col $active_row 
+		print_options_multicol $active_col $active_row
 		# user key control
 		case `key_input` in
 			enter)  break;;
@@ -223,7 +223,7 @@ echo -ne "
 ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
 ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 ------------------------------------------------------------------------
-            Please select presetup settings for your system              
+            Please select presetup settings for your system
 ------------------------------------------------------------------------
 "
 }
@@ -239,7 +239,7 @@ select_option $? 1 "${options[@]}"
 case $? in
 0) set_option FS btrfs;;
 1) set_option FS ext4;;
-2) 
+2)
 	set_password "LUKS_PASSWORD"
 	set_option FS luks
 	;;
@@ -247,7 +247,7 @@ case $? in
 *) echo "Wrong option please select again"; filesystem;;
 esac
 }
-# @description Detects and sets timezone. 
+# @description Detects and sets timezone.
 timezone () {
 if [ "$time_zone" ]; then
 	set_option TIMEZONE $time_zone
@@ -268,7 +268,7 @@ while :; do
 
 	if [ -n "$time_zone" ]; then
 		echo -ne "\nSystem detected your timezone to be '$time_zone' \n"
-		echo -ne "Is this correct?\n" 
+		echo -ne "Is this correct?\n"
 		options=("Yes" "No")
 		select_option $? 1 "${options[@]}"
 	else
@@ -302,7 +302,7 @@ while :; do
 					read -p "Enter number: " choice
 					city="${cities[$((choice-1))]}"
 					echo -e "\n\nYou selected: $city\n\n"
-					echo -ne "Is this correct?\n" 
+					echo -ne "Is this correct?\n"
 					options=("Yes" "No")
 					select_option $? 1 "${options[@]}"
 					correct=${options[$?]}
@@ -321,7 +321,7 @@ while :; do
 	esac
 done
 }
-# @description Set user's keyboard mapping. 
+# @description Set user's keyboard mapping.
 keymap () {
 echo -ne "
 Please select key board layout from this list"
@@ -373,19 +373,14 @@ echo -e "\n${disk%|*} selected \n"
 drivessd
 }
 
-# @description Gather username and password to be used for installation. 
+# @description Gather username and password to be used for installation.
 userinfo () {
-	#read -p "Please enter your username: " username
-	#set_option USERNAME ${username,,} # convert to lower case as in issue #109 
 	set_username "USERNAME"
 	set_password "PASSWORD"
-	#read -rep "Please enter your hostname: " nameofmachine
-	#set_option NAME_OF_MACHINE $nameofmachine
-	#set_hostname "nameofmachine"
 	set_hostname "NAME_OF_MACHINE"
 }
 
-# @description Choose AUR helper. 
+# @description Choose AUR helper.
 #aurhelper () {
   # Let the user choose AUR helper from predefined list
   #echo -ne "Please enter your desired AUR helper:\n"
@@ -405,7 +400,7 @@ desktopenv () {
 	set_option DESKTOP_ENV $desktop_env
 }
 
-# @description Choose whether to do full or minimal installation. 
+# @description Choose whether to do full or minimal installation.
 installtype () {
 	if ! [[ "$install_type" =~ ^(FULL|MINIMAL)$ ]]; then
 		echo -ne "Please select type of installation:\n\n\ndesktop enviroment, with added apps and themes needed for everyday use\n\nMinimal Install: Installs only apps few selected apps to get you started\n"
