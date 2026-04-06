@@ -121,7 +121,7 @@ select_option() {
 	key_input()         {
 						local key
 						IFS= read -rsn1 key 2>/dev/null >&2
-						if [[ $key = ""      ]]; then echo enter; fi;
+						if [[ $key = "" ]]; then echo enter; fi;
 						if [[ $key = $'\x20' ]]; then echo space; fi;
 						if [[ $key = "k" ]]; then echo up; fi;
 						if [[ $key = "j" ]]; then echo down; fi;
@@ -195,7 +195,7 @@ select_option() {
 			up)     ((active_row--));
 					if [[ $active_row -lt 0 ]]; then active_row=0; fi;;
 			down)   ((active_row++));
-					if [[ $active_row -ge $(( ${#options[@]} / $colmax ))  ]]; then active_row=$(( ${#options[@]} / $colmax )); fi;;
+					if [[ $active_row -ge $(( ${#options[@]} / $colmax )) ]]; then active_row=$(( ${#options[@]} / $colmax )); fi;;
 			left)     ((active_col=$active_col - 1));
 					if [[ $active_col -lt 0 ]]; then active_col=0; fi;;
 			right)     ((active_col=$active_col + 1));

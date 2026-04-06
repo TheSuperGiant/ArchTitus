@@ -70,7 +70,7 @@ elif [[ "${DESKTOP_ENV}" == "gnome" ]]; then
   systemctl enable gdm.service
 
 else
-  if [[ ! "${DESKTOP_ENV}" == "server"  ]]; then
+  if [[ ! "${DESKTOP_ENV}" == "server" ]]; then
   sudo pacman -S --noconfirm --needed lightdm lightdm-gtk-greeter
   systemctl enable lightdm.service
   fi
